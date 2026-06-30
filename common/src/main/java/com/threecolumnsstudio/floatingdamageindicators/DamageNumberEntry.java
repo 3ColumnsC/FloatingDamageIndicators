@@ -10,6 +10,7 @@ public class DamageNumberEntry {
     public DamageType type;
     public int age;
     public String cachedText;
+    public int baseColor;
 
     public DamageNumberEntry(Vec3 position, float damage, DamageType type) {
         this.position = position;
@@ -17,6 +18,7 @@ public class DamageNumberEntry {
         this.type = type;
         this.age = 0;
         this.cachedText = DamageClassifier.getPrefix(type) + String.format("%.1f", damage);
+        this.baseColor = DamageClassifier.getColor(type);
     }
 
     public boolean isExpired() {

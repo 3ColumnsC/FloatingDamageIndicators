@@ -18,10 +18,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public class DamageCaptureServerMixin {
+
+    private static final Map<UUID, Long> LAST_HIT_TICK = new HashMap<>();
+    private static final long DEBOUNCE_TICKS = 1;
 
     @Inject(method = "hurtServer", at = @At("RETURN"))
     private void fdi$onHurtServer(ServerLevel level, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -32,6 +37,13 @@ public class DamageCaptureServerMixin {
         long gameTime = level.getGameTime();
 
         if (attacker instanceof ServerPlayer attackerPlayer) {
+            UUID key = target.getUUID();
+            Long lastTick = LAST_HIT_TICK.get(key);
+            if (lastTick != null && gameTime - lastTick <= DEBOUNCE_TICKS) {
+                return;
+            }
+            LAST_HIT_TICK.put(key, gameTime);
+
             ServerDamageTracker.track(target.getUUID(), attackerPlayer.getUUID(), gameTime);
 
             Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
