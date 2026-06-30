@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "floatingdamageindicators",
+	"version": "${version}",
+	"name": "Floating Damage Indicators",
+	"description": "Shows floating damage indicators above entities when they take damage.",
+	"authors": [
+		"3C Team"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/floating-damage-indicators",
+		"issues": "https://github.com/3ColumnsC/FloatingDamageIndicators/issues",
+		"sources": "https://github.com/3ColumnsC/FloatingDamageIndicators"
+	},
+	"license": "MIT",
+	"icon": "assets/floatingdamageindicators/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.threecolumnsstudio.floatingdamageindicators.fabric.FloatingDamageIndicatorsFabric"
+		],
+		"client": [
+			"com.threecolumnsstudio.floatingdamageindicators.fabric.FloatingDamageIndicatorsFabricClient"
+		]
+	},
+	"mixins": [
+		"floatingdamageindicators.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.1.2",
+		"java": ">=21",
+		"fabric-api": ">=0.151.0"
+	}
+}

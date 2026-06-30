@@ -1,0 +1,20 @@
+package com.threecolumnsstudio.floatingdamageindicators.fabric;
+
+import com.threecolumnsstudio.floatingdamageindicators.FloatingDamageIndicators;
+import com.threecolumnsstudio.floatingdamageindicators.network.S2CDamagePacket;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+
+public class FloatingDamageIndicatorsFabric implements ModInitializer {
+
+    @Override
+    public void onInitialize() {
+        FloatingDamageIndicators.init();
+
+        PayloadTypeRegistry.clientboundPlay().register(S2CDamagePacket.TYPE, S2CDamagePacket.CODEC);
+
+        FloatingDamageIndicators.DAMAGE_PACKET_SENDER = (player, pos, damage, type) ->
+            ServerPlayNetworking.send(player, new S2CDamagePacket(pos, damage, type));
+    }
+}

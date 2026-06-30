@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+
+[[mods]]
+modId = "floatingdamageindicators"
+version = "${file.jarVersion}"
+displayName = "Floating Damage Indicators"
+authors = "3C Team"
+description = '''
+Shows floating damage indicators above entities when they take damage.
+'''
+logoFile = "assets/floatingdamageindicators/icon.png"
+
+[[mixins]]
+config = "floatingdamageindicators.mixins.json"
+side = "CLIENT"
+
+[[mixins]]
+config = "floatingdamageindicators-server.mixins.json"
+side = "SERVER"
+
+[[dependencies.floatingdamageindicators]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.floatingdamageindicators]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.1.2,)"
+ordering = "NONE"
+side = "BOTH"
