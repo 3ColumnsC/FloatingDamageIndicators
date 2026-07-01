@@ -5,11 +5,11 @@ import net.minecraft.world.phys.Vec3;
 public class DamageNumberEntry {
     public static final int LIFETIME = 40;
 
-    public Vec3 position;
-    public float damage;
-    public DamageType type;
+    public final Vec3 position;
+    public final float damage;
+    public final DamageType type;
     public int age;
-    public String cachedText;
+    public final String cachedText;
 
     public DamageNumberEntry(Vec3 position, float damage, DamageType type) {
         this.position = position;
