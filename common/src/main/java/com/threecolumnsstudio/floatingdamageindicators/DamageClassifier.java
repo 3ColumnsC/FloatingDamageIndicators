@@ -5,11 +5,11 @@ public final class DamageClassifier {
 
     public static int getColor(DamageType type) {
         return switch (type) {
-            case CRITICAL -> 0xFFD700;
-            case PROJECTILE -> 0x00FFFF;
-            case FIRE -> 0xFF6600;
-            case POISON -> 0x4A9E2F;
-            case NORMAL -> 0xFF3333;
+            case CRITICAL -> 0xFFFFD700;
+            case PROJECTILE -> 0xFF00FFFF;
+            case FIRE -> 0xFFFF6600;
+            case POISON -> 0xFF4A9E2F;
+            case NORMAL -> 0xFFFF3333;
         };
     }
 

@@ -15,7 +15,7 @@ public final class FloatingDamageIndicators {
         void send(ServerPlayer player, Vec3 pos, float damage, DamageType type);
     }
 
-    public static DamagePacketSender DAMAGE_PACKET_SENDER;
+    public static volatile DamagePacketSender DAMAGE_PACKET_SENDER;
 
     private FloatingDamageIndicators() {}
 
