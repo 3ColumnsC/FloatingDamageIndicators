@@ -7,11 +7,9 @@ import com.threecolumnsstudio.floatingdamageindicators.ServerDamageTracker;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,7 +23,7 @@ import java.util.UUID;
 @Mixin(LivingEntity.class)
 public class DamageCaptureServerMixin {
 
-    private static final Map<UUID, Long> LAST_HIT_TICK = new HashMap<>();
+    private static final Map<UUID, Long> LAST_HIT_TICK = new HashMap<>(64);
     private static final long DEBOUNCE_TICKS = 1;
 
     @Inject(method = "hurtServer", at = @At("RETURN"))
@@ -55,15 +53,9 @@ public class DamageCaptureServerMixin {
             return;
         }
 
-        String msgId = source.getMsgId();
-        boolean isFire = source.is(DamageTypes.ON_FIRE) || source.is(DamageTypes.IN_FIRE)
-                || source.is(DamageTypes.LAVA) || source.is(DamageTypes.FIREBALL)
-                || source.is(DamageTypes.UNATTRIBUTED_FIREBALL)
-                || msgId.equals("onFire") || msgId.equals("inFire")
-                || msgId.equals("lava") || msgId.equals("fireball");
-        boolean isPoison = source.is(DamageTypes.MAGIC) || source.is(DamageTypes.WITHER)
-                || source.is(DamageTypes.INDIRECT_MAGIC)
-                || msgId.equals("magic") || msgId.equals("wither") || msgId.equals("indirectMagic");
+        DamageType dmgType = DamageClassification.classifyDamage(source);
+        boolean isFire = dmgType == DamageType.FIRE;
+        boolean isPoison = dmgType == DamageType.POISON;
 
         if (!isFire && !isPoison) return;
 
@@ -80,7 +72,7 @@ public class DamageCaptureServerMixin {
         ServerPlayer targetPlayer = level.getServer().getPlayerList().getPlayer(playerUuid);
         if (targetPlayer == null) return;
 
-        DamageType dmgType = isFire ? DamageType.FIRE : DamageType.POISON;
+        dmgType = isFire ? DamageType.FIRE : DamageType.POISON;
         UUID uuid = target.getUUID();
         long msb = uuid.getMostSignificantBits();
         long lsb = uuid.getLeastSignificantBits();
