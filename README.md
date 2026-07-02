@@ -1,6 +1,6 @@
 # Floating Damage Indicators
 
-Floating Damage Indicators displays floating damage numbers above entities when they take damage. Color-coded by hit type.
+Floating damage numbers above every target you hit, and your own incoming damage too — color-coded by damage type.
 
 > **Note:** FDI must be installed on both the server and client for multiplayer servers.
 
@@ -8,24 +8,48 @@ Floating Damage Indicators displays floating damage numbers above entities when 
 ![NeoForge](https://img.shields.io/badge/NeoForge-Supported-green)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
-<img src="https://res.cloudinary.com/dbtdewiqk/image/upload/v1782848119/hit_qwgbbl.jpg" alt="Floating Damage Indicators: critical & normal hit" width="900">
-<img src="https://res.cloudinary.com/dbtdewiqk/image/upload/v1782848119/effect_y3m89x.jpg" alt="Floating Damage Indicators: poison & fire" width="900">
+<img src="https://res.cloudinary.com/dbtdewiqk/image/upload/v1782936767/hit_is51d7.jpg" alt="Floating Damage Indicators: hits" width="900">
+<img src="https://res.cloudinary.com/dbtdewiqk/image/upload/v1782936767/effect_xpc4w8.jpg" alt="Floating Damage Indicators: effects" width="900">
+<img src="https://res.cloudinary.com/dbtdewiqk/image/upload/v1782936767/projectile_wovc00.jpg" alt="Floating Damage Indicators: projectiles" width="900">
 
 ---
 
 ## ⚡ Features
 
-- Floating damage numbers above entities when they take damage.
+- Floating damage numbers above any entity you hit
+- See your own incoming damage too
 - Color-coded by damage type.
-- Works in both singleplayer and dedicated multiplayer
+- Configurable — choose which numbers show up.
+- Works in both singleplayer and dedicated multiplayer.
 
-| Type      | Color  | Example        |
-|-----------|--------|----------------|
-| NORMAL    | Red    | Normal hit     |
-| CRITICAL  | Gold   | Jump crit      |
-| PROJECTILE| Cyan   | Arrow, trident |
-| FIRE      | Orange | Fire Aspect    |
-| POISON    | Green  | Poison         |
+| Type      | Icon | Color      | Example            |
+|-----------|------|------------|--------------------|
+| NORMAL    | —    | Red        | Normal hit         |
+| CRITICAL  | ✦    | Gold       | Jump crit          |
+| PROJECTILE| ➵    | Cyan       | Arrow, trident     |
+| FIRE      | ♨    | Orange     | Fire Aspect        |
+| POISON    | ⚗    | Green      | Poison             |
+| WITHER    | ☠    | Dark gray  | Wither effect      |
+| RECEIVING | —    | Light gray | Damage you take    |
+
+---
+
+## ⚙️ Configuration
+
+After launching the game once, a configuration file will be generated:
+
+```
+config/floatingdamageindicators.json
+```
+
+Available options:
+
+```
+{
+  "showDamage": true,
+  "showReceivedDamage": true,
+}
+```
 
 ---
 

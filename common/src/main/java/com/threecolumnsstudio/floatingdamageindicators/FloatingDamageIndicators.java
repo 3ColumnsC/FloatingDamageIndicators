@@ -5,6 +5,8 @@ import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.file.Path;
+
 public final class FloatingDamageIndicators {
     public static final String MOD_ID = "floatingdamageindicators";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -19,7 +21,8 @@ public final class FloatingDamageIndicators {
 
     private FloatingDamageIndicators() {}
 
-    public static void init() {
+    public static void init(Path configDir) {
+        ModConfig.load(configDir);
         LOGGER.info("{} initialized", MOD_ID);
     }
 }

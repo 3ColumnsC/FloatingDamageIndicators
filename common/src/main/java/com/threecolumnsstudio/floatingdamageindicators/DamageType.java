@@ -5,5 +5,7 @@ public enum DamageType {
     CRITICAL,
     PROJECTILE,
     FIRE,
-    POISON
+    POISON,
+    WITHER,
+    RECEIVING
 }
