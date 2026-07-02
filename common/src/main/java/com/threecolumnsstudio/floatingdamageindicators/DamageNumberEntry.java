@@ -1,7 +1,5 @@
 package com.threecolumnsstudio.floatingdamageindicators;
 
-import net.minecraft.network.chat.Style;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.phys.Vec3;
 
 public class DamageNumberEntry {
@@ -12,7 +10,6 @@ public class DamageNumberEntry {
     public final DamageType type;
     public int age;
     public final String cachedText;
-    public final FormattedCharSequence cachedFormattedText;
 
     public DamageNumberEntry(Vec3 position, float damage, DamageType type) {
         this.position = position;
@@ -20,7 +17,6 @@ public class DamageNumberEntry {
         this.type = type;
         this.age = 0;
         this.cachedText = DamageClassifier.getPrefix(type) + String.format("%.1f", damage);
-        this.cachedFormattedText = FormattedCharSequence.forward(this.cachedText, Style.EMPTY);
     }
 
     public boolean isExpired() {

@@ -3,7 +3,7 @@ package com.threecolumnsstudio.floatingdamageindicators;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeStorage;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
@@ -34,7 +34,7 @@ public class DamageNumberRenderer {
         }
     }
 
-    public void render(PoseStack poseStack, SubmitNodeCollector output, Vec3 cameraPos, Quaternionf cameraRotation, float partialTick) {
+    public void render(PoseStack poseStack, Vec3 cameraPos, Quaternionf cameraRotation, float partialTick, SubmitNodeStorage storage) {
         if (entries.isEmpty()) return;
 
         Font font = Minecraft.getInstance().font;
@@ -60,19 +60,8 @@ public class DamageNumberRenderer {
             int color = (alphaInt << 24) | (rgb & 0x00FFFFFF);
 
             float textWidth = font.width(entry.cachedText);
-            FormattedCharSequence text = entry.cachedFormattedText;
-
-            output.submitText(
-                    poseStack,
-                    -textWidth / 2, 0,
-                    text,
-                    true,
-                    Font.DisplayMode.SEE_THROUGH,
-                    0xF000F0,
-                    color,
-                    0,
-                    0
-            );
+            FormattedCharSequence text = FormattedCharSequence.forward(entry.cachedText, net.minecraft.network.chat.Style.EMPTY);
+            storage.submitText(poseStack, -textWidth / 2, 0, text, true, Font.DisplayMode.SEE_THROUGH, 0xF000F0, color, 0, 0);
 
             poseStack.popPose();
         }

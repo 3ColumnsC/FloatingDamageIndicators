@@ -23,7 +23,7 @@ side = "SERVER"
 [[dependencies.floatingdamageindicators]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.2,)"
+versionRange = "[26.1,)"
 ordering = "NONE"
 side = "BOTH"
 

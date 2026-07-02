@@ -29,9 +29,10 @@ public final class DamageClassification {
                 || msgId.equals("onFire") || msgId.equals("inFire")
                 || msgId.equals("lava") || msgId.equals("fireball"))
             return DamageType.FIRE;
-        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.WITHER)
-                || source.is(DamageTypes.INDIRECT_MAGIC)
-                || msgId.equals("magic") || msgId.equals("wither") || msgId.equals("indirectMagic"))
+        if (source.is(DamageTypes.WITHER) || msgId.equals("wither"))
+            return DamageType.WITHER;
+        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)
+                || msgId.equals("magic") || msgId.equals("indirectMagic"))
             return DamageType.POISON;
         return DamageType.NORMAL;
     }

@@ -5,10 +5,12 @@
     "client": [
         "DamageNumberRenderMixin",
         "DamageCaptureServerMixin",
+        "DamageCapturePlayerMixin",
         "EffectTrackingServerMixin"
     ],
     "server": [
         "DamageCaptureServerMixin",
+        "DamageCapturePlayerMixin",
         "EffectTrackingServerMixin"
     ],
     "injectors": {
