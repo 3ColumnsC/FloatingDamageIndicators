@@ -4,13 +4,13 @@
     "compatibilityLevel": "JAVA_25",
     "client": [
         "DamageNumberRenderMixin",
-        "DamageCaptureServerMixin",
         "DamageCapturePlayerMixin",
+        "DamageCaptureServerMixin",
         "EffectTrackingServerMixin"
     ],
     "server": [
-        "DamageCaptureServerMixin",
         "DamageCapturePlayerMixin",
+        "DamageCaptureServerMixin",
         "EffectTrackingServerMixin"
     ],
     "injectors": {

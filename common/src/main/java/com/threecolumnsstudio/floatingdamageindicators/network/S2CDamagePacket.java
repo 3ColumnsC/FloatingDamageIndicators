@@ -28,10 +28,31 @@ public record S2CDamagePacket(Vec3 position, float damage, DamageType damageType
     }
 
     public static S2CDamagePacket read(FriendlyByteBuf buf) {
-        Vec3 pos = new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
-        float damage = buf.readFloat();
-        DamageType dmgType = buf.readEnum(DamageType.class);
+        double x = validateFinite(buf.readDouble(), 0);
+        double y = validateFinite(buf.readDouble(), 0);
+        double z = validateFinite(buf.readDouble(), 0);
+        Vec3 pos = new Vec3(x, y, z);
+        float damage = validateFinite(buf.readFloat(), 0);
+        DamageType dmgType = readEnumSafe(buf);
         return new S2CDamagePacket(pos, damage, dmgType);
+    }
+
+    private static double validateFinite(double value, double fallback) {
+        return Double.isFinite(value) ? value : fallback;
+    }
+
+    private static float validateFinite(float value, float fallback) {
+        return Float.isFinite(value) ? value : fallback;
+    }
+
+    private static DamageType readEnumSafe(FriendlyByteBuf buf) {
+        int ordinal = buf.readVarInt();
+        DamageType[] values = DamageType.values();
+        if (ordinal >= 0 && ordinal < values.length) {
+            return values[ordinal];
+        }
+        FloatingDamageIndicators.LOGGER.warn("Received invalid DamageType ordinal: {}", ordinal);
+        return DamageType.NORMAL;
     }
 
     @Override

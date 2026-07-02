@@ -1,9 +1,12 @@
 package com.threecolumnsstudio.floatingdamageindicators;
 
+import java.util.Objects;
+
 public final class DamageClassifier {
     private DamageClassifier() {}
 
     public static int getColor(DamageType type) {
+        Objects.requireNonNull(type);
         return switch (type) {
             case CRITICAL -> 0xFFFFD700;
             case PROJECTILE -> 0xFF00FFFF;
@@ -16,12 +19,15 @@ public final class DamageClassifier {
     }
 
     public static String getPrefix(DamageType type) {
-        if (type == DamageType.CRITICAL) return "\u2726";
-        if (type == DamageType.PROJECTILE) return "\u27B5";
-        if (type == DamageType.WITHER) return "\u2620";
-        if (type == DamageType.FIRE) return "\u2668";
-        if (type == DamageType.POISON) return "\u2697";
-        if (type == DamageType.RECEIVING) return "(You) ";
-        return "";
+        Objects.requireNonNull(type);
+        return switch (type) {
+            case CRITICAL -> "\u2726";
+            case PROJECTILE -> "\u27B5";
+            case WITHER -> "\u2620";
+            case FIRE -> "\u2668";
+            case POISON -> "\u2697";
+            case RECEIVING -> "(You) ";
+            case NORMAL -> "";
+        };
     }
 }

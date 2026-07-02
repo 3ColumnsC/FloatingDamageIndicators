@@ -15,7 +15,7 @@ public class DamageCapturePlayerMixin {
 
     @Inject(method = "actuallyHurt", at = @At("HEAD"))
     private void fdi$recordPlayerHealth(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        DamageCaptureState.putInitialHealth(((LivingEntity) (Object) this).getId(), ((LivingEntity) (Object) this).getHealth());
+        DamageCaptureState.putInitialHealth(((LivingEntity) (Object) this).getId(), ((LivingEntity) (Object) this).getHealth(), level.getGameTime());
     }
 
     @Inject(method = "actuallyHurt", at = @At("RETURN"))
@@ -23,7 +23,7 @@ public class DamageCapturePlayerMixin {
         LivingEntity target = (LivingEntity) (Object) this;
         float initial = DamageCaptureState.removeInitialHealth(target.getId());
         if (!Float.isNaN(initial)) {
-            DamageCaptureState.putActualDamage(target.getId(), Math.max(0, initial - target.getHealth()));
+            DamageCaptureState.putActualDamage(target.getId(), Math.max(0, initial - target.getHealth()), level.getGameTime());
         }
     }
 }

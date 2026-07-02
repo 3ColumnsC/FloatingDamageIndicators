@@ -26,7 +26,7 @@ public class DamageCaptureServerMixin {
 
     @Inject(method = "actuallyHurt", at = @At("HEAD"))
     private void fdi$recordHealth(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        DamageCaptureState.putInitialHealth(((LivingEntity) (Object) this).getId(), ((LivingEntity) (Object) this).getHealth());
+        DamageCaptureState.putInitialHealth(((LivingEntity) (Object) this).getId(), ((LivingEntity) (Object) this).getHealth(), level.getGameTime());
     }
 
     @Inject(method = "actuallyHurt", at = @At("RETURN"))
@@ -34,7 +34,7 @@ public class DamageCaptureServerMixin {
         LivingEntity target = (LivingEntity) (Object) this;
         float initial = DamageCaptureState.removeInitialHealth(target.getId());
         if (!Float.isNaN(initial)) {
-            DamageCaptureState.putActualDamage(target.getId(), Math.max(0, initial - target.getHealth()));
+            DamageCaptureState.putActualDamage(target.getId(), Math.max(0, initial - target.getHealth()), level.getGameTime());
         }
     }
 
@@ -42,6 +42,9 @@ public class DamageCaptureServerMixin {
     private void fdi$onHurtServer(ServerLevel level, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue()) return;
         if (!ModConfig.get().showDamage) return;
+
+        var sender = FloatingDamageIndicators.DAMAGE_PACKET_SENDER;
+        if (sender == null) return;
 
         LivingEntity target = (LivingEntity) (Object) this;
         float stored = DamageCaptureState.removeActualDamage(target.getId());
@@ -56,9 +59,7 @@ public class DamageCaptureServerMixin {
             Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
             DamageType type = DamageClassification.classifyDirect(source, attackerPlayer);
 
-            if (FloatingDamageIndicators.DAMAGE_PACKET_SENDER != null) {
-                FloatingDamageIndicators.DAMAGE_PACKET_SENDER.send(attackerPlayer, pos, actual, type);
-            }
+            sender.send(attackerPlayer, pos, actual, type);
             return;
         }
 
@@ -67,9 +68,7 @@ public class DamageCaptureServerMixin {
 
             Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
 
-            if (FloatingDamageIndicators.DAMAGE_PACKET_SENDER != null) {
-                FloatingDamageIndicators.DAMAGE_PACKET_SENDER.send(targetPlayer, pos, actual, DamageType.RECEIVING);
-            }
+            sender.send(targetPlayer, pos, actual, DamageType.RECEIVING);
             return;
         }
 
@@ -85,20 +84,18 @@ public class DamageCaptureServerMixin {
         if (isFire && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)) return;
 
         if (isPoison && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)
-                && !((LivingEntity) target).hasEffect(MobEffects.POISON)) return;
+                && !target.hasEffect(MobEffects.POISON)) return;
 
         if (isWither && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)
-                && !((LivingEntity) target).hasEffect(MobEffects.WITHER)) return;
+                && !target.hasEffect(MobEffects.WITHER)) return;
 
         UUID playerUuid = ServerDamageTracker.getTrackingPlayer(targetUUID, gameTime);
         if (playerUuid == null) return;
 
+        if (level.getServer() == null) return;
         ServerPlayer trackingPlayer = level.getServer().getPlayerList().getPlayer(playerUuid);
         if (trackingPlayer == null) return;
 
-        if (isFire) dmgType = DamageType.FIRE;
-        else if (isPoison) dmgType = DamageType.POISON;
-        else if (isWither) dmgType = DamageType.WITHER;
         UUID uuid = target.getUUID();
         long msb = uuid.getMostSignificantBits();
         long lsb = uuid.getLeastSignificantBits();
@@ -114,8 +111,6 @@ public class DamageCaptureServerMixin {
         double oz = Math.sin(angle);
         Vec3 pos = target.position().add(ox, target.getBbHeight() * 0.85, oz);
 
-        if (FloatingDamageIndicators.DAMAGE_PACKET_SENDER != null) {
-            FloatingDamageIndicators.DAMAGE_PACKET_SENDER.send(trackingPlayer, pos, actual, dmgType);
-        }
+        sender.send(trackingPlayer, pos, actual, dmgType);
     }
 }
