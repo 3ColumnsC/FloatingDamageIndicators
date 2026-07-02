@@ -4,17 +4,18 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.SubmitNodeStorage;
+import net.minecraft.network.chat.Style;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DamageNumberRenderer {
     private static final int MAX_ENTRIES = 50;
 
-    private final List<DamageNumberEntry> entries = new ArrayList<>();
+    private final List<DamageNumberEntry> entries = new CopyOnWriteArrayList<>();
 
     public void add(DamageNumberEntry entry) {
         if (entries.size() >= MAX_ENTRIES) {
@@ -38,6 +39,7 @@ public class DamageNumberRenderer {
         if (entries.isEmpty()) return;
 
         Font font = Minecraft.getInstance().font;
+        if (font == null) return;
 
         for (DamageNumberEntry entry : entries) {
             float smoothAge = entry.age + partialTick;
@@ -60,8 +62,7 @@ public class DamageNumberRenderer {
             int color = (alphaInt << 24) | (rgb & 0x00FFFFFF);
 
             float textWidth = font.width(entry.cachedText);
-            FormattedCharSequence text = FormattedCharSequence.forward(entry.cachedText, net.minecraft.network.chat.Style.EMPTY);
-            storage.submitText(poseStack, -textWidth / 2, 0, text, true, Font.DisplayMode.SEE_THROUGH, 0xF000F0, color, 0, 0);
+            storage.submitText(poseStack, -textWidth / 2, 0, entry.cachedSequence, true, Font.DisplayMode.SEE_THROUGH, 0xF000F0, color, 0, 0);
 
             poseStack.popPose();
         }
