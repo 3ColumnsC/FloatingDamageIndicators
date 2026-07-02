@@ -5,12 +5,13 @@ import com.threecolumnsstudio.floatingdamageindicators.network.S2CDamagePacket;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 
 public class FloatingDamageIndicatorsFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        FloatingDamageIndicators.init();
+        FloatingDamageIndicators.init(FabricLoader.getInstance().getConfigDir());
 
         PayloadTypeRegistry.clientboundPlay().register(S2CDamagePacket.TYPE, S2CDamagePacket.CODEC);
 
