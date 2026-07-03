@@ -1,25 +1,23 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version "${fabric_loom_version}"
-}
-
-loom {
-    runConfigs.clear()
+    id 'net.fabricmc.fabric-loom-remap' version "${fabric_loom_version}"
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        languageVersion = JavaLanguageVersion.of(21)
     }
     withSourcesJar()
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 25
+    it.options.release = 21
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
     // Gson is bundled with MC
     compileOnly 'com.google.code.gson:gson:2.10.1'
     compileOnly "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    compileOnly "net.fabricmc:sponge-mixin:0.17.0+mixin.0.8.7"
 }

@@ -3,10 +3,10 @@ package com.threecolumnsstudio.floatingdamageindicators;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.SubmitNodeStorage;
-import net.minecraft.network.chat.Style;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class DamageNumberRenderer {
         }
     }
 
-    public void render(PoseStack poseStack, Vec3 cameraPos, Quaternionf cameraRotation, float partialTick, SubmitNodeStorage storage) {
+    public void render(PoseStack poseStack, MultiBufferSource consumers, Vec3 cameraPos, Quaternionf cameraRotation, float partialTick) {
         if (entries.isEmpty()) return;
 
         Font font = Minecraft.getInstance().font;
@@ -57,12 +57,15 @@ public class DamageNumberRenderer {
             poseStack.mulPose(cameraRotation);
             poseStack.scale(0.025f, -0.025f, 0.025f);
 
-            int rgb = DamageClassifier.getColor(entry.type);
+            int argb = DamageClassifier.getColor(entry.type);
             int alphaInt = Math.max(0, Math.min(255, (int) (alpha * 255)));
-            int color = (alphaInt << 24) | (rgb & 0x00FFFFFF);
+            int color = (alphaInt << 24) | (argb & 0x00FFFFFF);
 
-            float textWidth = font.width(entry.cachedText);
-            storage.submitText(poseStack, -textWidth / 2, 0, entry.cachedSequence, true, Font.DisplayMode.SEE_THROUGH, 0xF000F0, color, 0, 0);
+            int bgColor = 0;
+
+            Matrix4f matrix = poseStack.last().pose();
+            float textWidth = font.width(entry.cachedSequence);
+            font.drawInBatch(entry.cachedSequence, -textWidth / 2, 0, color, false, matrix, consumers, Font.DisplayMode.SEE_THROUGH, bgColor, 0xF000F0);
 
             poseStack.popPose();
         }

@@ -23,13 +23,13 @@ side = "SERVER"
 [[dependencies.floatingdamageindicators]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.1,)"
+versionRange = "[21.11,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.floatingdamageindicators]]
 modId = "minecraft"
 type = "required"
-versionRange = "[26.2,)"
+versionRange = "[1.21.11,)"
 ordering = "NONE"
 side = "BOTH"
