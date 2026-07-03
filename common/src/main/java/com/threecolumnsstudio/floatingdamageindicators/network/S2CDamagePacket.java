@@ -6,12 +6,12 @@ import com.threecolumnsstudio.floatingdamageindicators.ServerDamageData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 
 public record S2CDamagePacket(Vec3 position, float damage, DamageType damageType) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<S2CDamagePacket> TYPE = new CustomPacketPayload.Type<>(
-        Identifier.fromNamespaceAndPath(FloatingDamageIndicators.MOD_ID, "damage")
+        ResourceLocation.fromNamespaceAndPath(FloatingDamageIndicators.MOD_ID, "damage")
     );
 
     public static final StreamCodec<FriendlyByteBuf, S2CDamagePacket> CODEC = StreamCodec.of(
@@ -59,6 +59,7 @@ public record S2CDamagePacket(Vec3 position, float damage, DamageType damageType
     public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
+
 
     public void enqueue() {
         ServerDamageData.QUEUE.offer(new ServerDamageData(position, damage, damageType));

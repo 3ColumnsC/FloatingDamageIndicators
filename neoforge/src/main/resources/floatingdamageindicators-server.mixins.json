@@ -1,9 +1,8 @@
 {
     "required": true,
     "package": "com.threecolumnsstudio.floatingdamageindicators.mixin",
-    "compatibilityLevel": "JAVA_25",
+    "compatibilityLevel": "JAVA_21",
     "server": [
-        "DamageCapturePlayerMixin",
         "DamageCaptureServerMixin",
         "EffectTrackingServerMixin"
     ],

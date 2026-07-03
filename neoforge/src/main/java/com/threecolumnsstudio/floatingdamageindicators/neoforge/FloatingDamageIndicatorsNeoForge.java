@@ -16,7 +16,7 @@ public class FloatingDamageIndicatorsNeoForge {
     public FloatingDamageIndicatorsNeoForge(IEventBus modEventBus) {
         FloatingDamageIndicators.init(FMLPaths.CONFIGDIR.get());
         modEventBus.addListener(RegisterPayloadHandlersEvent.class, this::onRegisterPayloadHandlers);
-        if (FMLEnvironment.getDist().isClient()) {
+        if (FMLEnvironment.dist.isClient()) {
             NeoForge.EVENT_BUS.register(FloatingDamageIndicatorsNeoForgeClient.class);
         }
     }

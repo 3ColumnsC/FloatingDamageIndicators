@@ -6,7 +6,6 @@ import com.threecolumnsstudio.floatingdamageindicators.FloatingDamageIndicators;
 import com.threecolumnsstudio.floatingdamageindicators.ModConfig;
 import com.threecolumnsstudio.floatingdamageindicators.ServerDamageTracker;
 import com.threecolumnsstudio.floatingdamageindicators.util.DamageCaptureState;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -16,7 +15,6 @@ import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.UUID;
@@ -24,49 +22,44 @@ import java.util.UUID;
 @Mixin(LivingEntity.class)
 public class DamageCaptureServerMixin {
 
-    @Inject(method = "actuallyHurt", at = @At("HEAD"))
-    private void fdi$recordHealth(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        DamageCaptureState.putInitialHealth(((LivingEntity) (Object) this).getId(), ((LivingEntity) (Object) this).getHealth(), level.getGameTime());
+    @Inject(method = "hurt", at = @At("HEAD"))
+    private void fdi$recordHealth(DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (self.level().isClientSide()) return;
+        DamageCaptureState.putInitialHealth(self.getId(), self.getHealth(), self.level().getGameTime());
     }
 
-    @Inject(method = "actuallyHurt", at = @At("RETURN"))
-    private void fdi$captureDamage(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        LivingEntity target = (LivingEntity) (Object) this;
-        float initial = DamageCaptureState.removeInitialHealth(target.getId());
-        if (!Float.isNaN(initial)) {
-            DamageCaptureState.putActualDamage(target.getId(), Math.max(0, initial - target.getHealth()), level.getGameTime());
-        }
-    }
-
-    @Inject(method = "hurtServer", at = @At("RETURN"))
-    private void fdi$onHurtServer(ServerLevel level, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurt", at = @At("RETURN"))
+    private void fdi$onHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue()) return;
         if (!ModConfig.get().showDamage) return;
+
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (self.level().isClientSide()) return;
+
+        float initial = DamageCaptureState.removeInitialHealth(self.getId());
+        float actual = Float.isNaN(initial) ? amount : Math.max(0, initial - self.getHealth());
 
         var sender = FloatingDamageIndicators.DAMAGE_PACKET_SENDER;
         if (sender == null) return;
 
-        LivingEntity target = (LivingEntity) (Object) this;
-        float stored = DamageCaptureState.removeActualDamage(target.getId());
-        float actual = Float.isNaN(stored) ? amount : stored;
-
         Entity attacker = source.getEntity();
-        long gameTime = level.getGameTime();
+        long gameTime = self.level().getGameTime();
 
         if (attacker instanceof ServerPlayer attackerPlayer) {
-            ServerDamageTracker.track(target.getUUID(), attackerPlayer.getUUID(), gameTime);
+            ServerDamageTracker.track(self.getUUID(), attackerPlayer.getUUID(), gameTime);
 
-            Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
+            Vec3 pos = self.position().add(0, self.getBbHeight() * 0.85, 0);
             DamageType type = DamageClassification.classifyDirect(source, attackerPlayer);
 
             sender.send(attackerPlayer, pos, actual, type);
             return;
         }
 
-        if (target instanceof ServerPlayer targetPlayer) {
+        if (self instanceof ServerPlayer targetPlayer) {
             if (!ModConfig.get().showReceivedDamage) return;
 
-            Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
+            Vec3 pos = self.position().add(0, self.getBbHeight() * 0.85, 0);
 
             sender.send(targetPlayer, pos, actual, DamageType.RECEIVING);
             return;
@@ -79,24 +72,24 @@ public class DamageCaptureServerMixin {
 
         if (!isFire && !isPoison && !isWither) return;
 
-        UUID targetUUID = target.getUUID();
+        UUID targetUUID = self.getUUID();
 
         if (isFire && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)) return;
 
         if (isPoison && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)
-                && !target.hasEffect(MobEffects.POISON)) return;
+                && !self.hasEffect(MobEffects.POISON)) return;
 
         if (isWither && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)
-                && !target.hasEffect(MobEffects.WITHER)) return;
+                && !self.hasEffect(MobEffects.WITHER)) return;
 
         UUID playerUuid = ServerDamageTracker.getTrackingPlayer(targetUUID, gameTime);
         if (playerUuid == null) return;
 
-        if (level.getServer() == null) return;
-        ServerPlayer trackingPlayer = level.getServer().getPlayerList().getPlayer(playerUuid);
+        if (self.level().getServer() == null) return;
+        ServerPlayer trackingPlayer = self.level().getServer().getPlayerList().getPlayer(playerUuid);
         if (trackingPlayer == null) return;
 
-        UUID uuid = target.getUUID();
+        UUID uuid = self.getUUID();
         long msb = uuid.getMostSignificantBits();
         long lsb = uuid.getLeastSignificantBits();
         double angle;
@@ -109,7 +102,7 @@ public class DamageCaptureServerMixin {
         }
         double ox = Math.cos(angle);
         double oz = Math.sin(angle);
-        Vec3 pos = target.position().add(ox, target.getBbHeight() * 0.85, oz);
+        Vec3 pos = self.position().add(ox, self.getBbHeight() * 0.85, oz);
 
         sender.send(trackingPlayer, pos, actual, dmgType);
     }

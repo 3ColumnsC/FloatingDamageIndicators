@@ -13,7 +13,7 @@ public class FloatingDamageIndicatorsFabric implements ModInitializer {
     public void onInitialize() {
         FloatingDamageIndicators.init(FabricLoader.getInstance().getConfigDir());
 
-        PayloadTypeRegistry.clientboundPlay().register(S2CDamagePacket.TYPE, S2CDamagePacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(S2CDamagePacket.TYPE, S2CDamagePacket.CODEC);
 
         FloatingDamageIndicators.DAMAGE_PACKET_SENDER = (player, pos, damage, type) ->
             ServerPlayNetworking.send(player, new S2CDamagePacket(pos, damage, type));
