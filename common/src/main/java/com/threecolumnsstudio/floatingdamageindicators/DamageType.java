@@ -7,5 +7,6 @@ public enum DamageType {
     FIRE,
     POISON,
     WITHER,
-    RECEIVING
+    RECEIVING,
+    INSTANT_KILL
 }
