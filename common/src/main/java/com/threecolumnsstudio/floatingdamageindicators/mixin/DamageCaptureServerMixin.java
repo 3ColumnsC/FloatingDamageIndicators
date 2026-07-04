@@ -50,7 +50,14 @@ public class DamageCaptureServerMixin {
             ServerDamageTracker.track(self.getUUID(), attackerPlayer.getUUID(), gameTime);
 
             Vec3 pos = self.position().add(0, self.getBbHeight() * 0.85, 0);
-            DamageType type = DamageClassification.classifyDirect(source, attackerPlayer);
+            DamageType type;
+            ModConfig.FormatEntry killFmt = ModConfig.get().getFormat(DamageType.INSTANT_KILL);
+            boolean oneShot = self.isDeadOrDying() && (self.getHealth() + actual >= self.getMaxHealth() - 0.01f);
+            if (oneShot && killFmt != null && killFmt.enabled) {
+                type = DamageType.INSTANT_KILL;
+            } else {
+                type = DamageClassification.classifyDirect(source, attackerPlayer);
+            }
 
             sender.send(attackerPlayer, pos, actual, type);
             return;
