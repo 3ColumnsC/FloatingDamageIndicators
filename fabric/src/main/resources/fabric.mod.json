@@ -3,7 +3,7 @@
 	"id": "floatingdamageindicators",
 	"version": "${version}",
 	"name": "Floating Damage Indicators",
-	"description": "Shows floating damage indicators above entities when they take damage.",
+	"description": "Adds floating damage numbers above every target you hit, and your own incoming damage too. Color-coded by damage type.",
 	"authors": [
 		"3C Team"
 	],

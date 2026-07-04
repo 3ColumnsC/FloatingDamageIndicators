@@ -2,6 +2,8 @@ package com.threecolumnsstudio.floatingdamageindicators;
 
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Locale;
+
 public class DamageNumberEntry {
     public static final int LIFETIME = 40;
 
@@ -12,11 +14,22 @@ public class DamageNumberEntry {
     public final String cachedText;
 
     public DamageNumberEntry(Vec3 position, float damage, DamageType type) {
+        if (!Float.isFinite(damage)) {
+            damage = 0;
+        }
         this.position = position;
         this.damage = damage;
         this.type = type;
         this.age = 0;
-        this.cachedText = DamageClassifier.getPrefix(type) + String.format("%.1f", damage);
+        String prefix = DamageClassifier.getPrefix(type);
+        boolean showNum = true;
+        ModConfig.FormatEntry fmt = ModConfig.get().getFormat(type);
+        if (fmt != null) {
+            showNum = fmt.showDamage;
+        }
+        String num = showNum ? String.format(Locale.ROOT, "%.1f", damage) : "";
+        String sep = (!prefix.isEmpty() && !num.isEmpty() && !prefix.endsWith(" ")) ? " " : "";
+        this.cachedText = prefix + sep + num;
     }
 
     public boolean isExpired() {

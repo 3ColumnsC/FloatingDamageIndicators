@@ -7,13 +7,13 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DamageNumberRenderer {
     private static final int MAX_ENTRIES = 50;
 
-    private final List<DamageNumberEntry> entries = new ArrayList<>();
+    private final List<DamageNumberEntry> entries = new CopyOnWriteArrayList<>();
 
     public void add(DamageNumberEntry entry) {
         if (entries.size() >= MAX_ENTRIES) {
@@ -25,6 +25,8 @@ public class DamageNumberRenderer {
     public void tick() {
         ServerDamageData data;
         while ((data = ServerDamageData.QUEUE.poll()) != null) {
+            ModConfig.FormatEntry fmt = ModConfig.get().getFormat(data.type());
+            if (fmt != null && !fmt.enabled) continue;
             add(new DamageNumberEntry(data.position(), data.damage(), data.type()));
         }
         entries.removeIf(DamageNumberEntry::isExpired);
@@ -37,6 +39,7 @@ public class DamageNumberRenderer {
         if (entries.isEmpty()) return;
 
         Font font = Minecraft.getInstance().font;
+        if (font == null) return;
 
         for (DamageNumberEntry entry : entries) {
             float smoothAge = entry.age + partialTick;
@@ -64,5 +67,4 @@ public class DamageNumberRenderer {
             poseStack.popPose();
         }
     }
-
 }

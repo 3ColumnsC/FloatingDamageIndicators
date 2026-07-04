@@ -43,6 +43,9 @@ public class DamageCaptureServerMixin {
         if (!cir.getReturnValue()) return;
         if (!ModConfig.get().showDamage) return;
 
+        var sender = FloatingDamageIndicators.DAMAGE_PACKET_SENDER;
+        if (sender == null) return;
+
         LivingEntity target = (LivingEntity) (Object) this;
         float stored = DamageCaptureState.removeActualDamage(target.getId());
         float actual = Float.isNaN(stored) ? amount : stored;
@@ -54,11 +57,16 @@ public class DamageCaptureServerMixin {
             ServerDamageTracker.track(target.getUUID(), attackerPlayer.getUUID(), gameTime);
 
             Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
-            DamageType type = DamageClassification.classifyDirect(source, attackerPlayer);
-
-            if (FloatingDamageIndicators.DAMAGE_PACKET_SENDER != null) {
-                FloatingDamageIndicators.DAMAGE_PACKET_SENDER.send(attackerPlayer, pos, actual, type);
+            DamageType type;
+            ModConfig.FormatEntry killFmt = ModConfig.get().getFormat(DamageType.INSTANT_KILL);
+            boolean oneShot = target.isDeadOrDying() && (target.getHealth() + actual >= target.getMaxHealth() - 0.01f);
+            if (oneShot && killFmt != null && killFmt.enabled) {
+                type = DamageType.INSTANT_KILL;
+            } else {
+                type = DamageClassification.classifyDirect(source, attackerPlayer);
             }
+
+            sender.send(attackerPlayer, pos, actual, type);
             return;
         }
 
@@ -67,9 +75,7 @@ public class DamageCaptureServerMixin {
 
             Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
 
-            if (FloatingDamageIndicators.DAMAGE_PACKET_SENDER != null) {
-                FloatingDamageIndicators.DAMAGE_PACKET_SENDER.send(targetPlayer, pos, actual, DamageType.RECEIVING);
-            }
+            sender.send(targetPlayer, pos, actual, DamageType.RECEIVING);
             return;
         }
 
@@ -85,10 +91,10 @@ public class DamageCaptureServerMixin {
         if (isFire && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)) return;
 
         if (isPoison && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)
-                && !((LivingEntity) target).hasEffect(MobEffects.POISON)) return;
+                && !target.hasEffect(MobEffects.POISON)) return;
 
         if (isWither && !ServerDamageTracker.isRecentlyHit(targetUUID, gameTime)
-                && !((LivingEntity) target).hasEffect(MobEffects.WITHER)) return;
+                && !target.hasEffect(MobEffects.WITHER)) return;
 
         UUID playerUuid = ServerDamageTracker.getTrackingPlayer(targetUUID, gameTime);
         if (playerUuid == null) return;
@@ -96,9 +102,6 @@ public class DamageCaptureServerMixin {
         ServerPlayer trackingPlayer = level.getServer().getPlayerList().getPlayer(playerUuid);
         if (trackingPlayer == null) return;
 
-        if (isFire) dmgType = DamageType.FIRE;
-        else if (isPoison) dmgType = DamageType.POISON;
-        else if (isWither) dmgType = DamageType.WITHER;
         UUID uuid = target.getUUID();
         long msb = uuid.getMostSignificantBits();
         long lsb = uuid.getLeastSignificantBits();
@@ -114,8 +117,6 @@ public class DamageCaptureServerMixin {
         double oz = Math.sin(angle);
         Vec3 pos = target.position().add(ox, target.getBbHeight() * 0.85, oz);
 
-        if (FloatingDamageIndicators.DAMAGE_PACKET_SENDER != null) {
-            FloatingDamageIndicators.DAMAGE_PACKET_SENDER.send(trackingPlayer, pos, actual, dmgType);
-        }
+        sender.send(trackingPlayer, pos, actual, dmgType);
     }
 }
