@@ -8,7 +8,7 @@ version = "${file.jarVersion}"
 displayName = "Floating Damage Indicators"
 authors = "3C Team"
 description = '''
-Shows floating damage indicators above entities when they take damage.
+Adds floating damage numbers above every target you hit, and your own incoming damage too. Color-coded by damage type.
 '''
 logoFile = "assets/floatingdamageindicators/icon.png"
 

@@ -24,7 +24,15 @@ public class DamageNumberEntry {
         this.damage = damage;
         this.type = type;
         this.age = 0;
-        String text = DamageClassifier.getPrefix(type) + String.format(Locale.ROOT, "%.1f", damage);
+        String prefix = DamageClassifier.getPrefix(type);
+        boolean showNum = true;
+        ModConfig.FormatEntry fmt = ModConfig.get().getFormat(type);
+        if (fmt != null) {
+            showNum = fmt.showDamage;
+        }
+        String num = showNum ? String.format(Locale.ROOT, "%.1f", damage) : "";
+        String sep = (!prefix.isEmpty() && !num.isEmpty() && !prefix.endsWith(" ")) ? " " : "";
+        String text = prefix + sep + num;
         this.cachedText = text;
         this.cachedSequence = FormattedCharSequence.forward(text, Style.EMPTY);
     }
