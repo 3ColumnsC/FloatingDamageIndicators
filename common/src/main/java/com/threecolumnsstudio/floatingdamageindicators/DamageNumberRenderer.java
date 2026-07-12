@@ -67,7 +67,7 @@ public class DamageNumberRenderer {
 
             Matrix4f matrix = poseStack.last().pose();
             float textWidth = font.width(entry.cachedSequence);
-            font.drawInBatch(entry.cachedSequence, -textWidth / 2, 0, color, false, matrix, consumers, Font.DisplayMode.SEE_THROUGH, bgColor, 0xF000F0);
+            font.drawInBatch(entry.cachedSequence, -textWidth / 2, 0, color, false, matrix, consumers, Font.DisplayMode.SEE_THROUGH, bgColor, 0x000F000F);
 
             poseStack.popPose();
         }
