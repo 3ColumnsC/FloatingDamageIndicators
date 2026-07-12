@@ -22,6 +22,8 @@ Floating damage numbers above every target you hit, and your own incoming damage
 - Configurable — choose which numbers show up.
 - Works in both singleplayer and dedicated multiplayer.
 
+> **Note:** Colors may appear black when using shader packs.
+
 | Type         | Icon           | Color      | Example                      |
 |--------------|----------------|------------|------------------------------|
 | NORMAL       | —              | Red        | Normal hit                   |
