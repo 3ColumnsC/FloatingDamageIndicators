@@ -64,7 +64,7 @@ public class DamageNumberRenderer {
             int color = (alphaInt << 24) | (rgb & 0x00FFFFFF);
 
             float textWidth = font.width(entry.cachedText);
-            storage.submitText(poseStack, -textWidth / 2, 0, entry.cachedSequence, true, Font.DisplayMode.SEE_THROUGH, 0xF000F0, color, 0, 0);
+            storage.submitText(poseStack, -textWidth / 2, 0, entry.cachedSequence, false, Font.DisplayMode.SEE_THROUGH, 0x000F000F, color, 0, 0);
 
             poseStack.popPose();
         }
