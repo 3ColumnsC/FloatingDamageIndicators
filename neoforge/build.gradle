@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "floatingdamageindicators-neoforge"
+    archivesName = "fdi-neoforge"
 }
 
 neoForge {
