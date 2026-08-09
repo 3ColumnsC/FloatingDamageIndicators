@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.SubmitNodeStorage;
 import net.minecraft.network.chat.Style;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
@@ -64,7 +65,7 @@ public class DamageNumberRenderer {
             int color = (alphaInt << 24) | (rgb & 0x00FFFFFF);
 
             float textWidth = font.width(entry.cachedText);
-            storage.submitText(poseStack, -textWidth / 2, 0, entry.cachedSequence, false, Font.DisplayMode.SEE_THROUGH, 0x000F000F, color, 0, 0);
+            storage.submitText(poseStack, -textWidth / 2, 0, entry.cachedSequence, false, Font.DisplayMode.SEE_THROUGH, LightCoordsUtil.FULL_BRIGHT, color, 0, 0);
 
             poseStack.popPose();
         }

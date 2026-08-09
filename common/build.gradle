@@ -13,10 +13,6 @@ java {
     withSourcesJar()
 }
 
-tasks.withType(JavaCompile).configureEach {
-    it.options.release = 25
-}
-
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     // Gson is bundled with MC

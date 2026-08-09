@@ -4,10 +4,6 @@ Floating damage numbers above every target you hit, and your own incoming damage
 
 > **Note:** FDI must be installed on both the server and client for multiplayer servers.
 
-![Fabric](https://img.shields.io/badge/Fabric-Supported-green)
-![NeoForge](https://img.shields.io/badge/NeoForge-Supported-green)
-![License](https://img.shields.io/badge/License-MIT-blue)
-
 <img src="https://res.cloudinary.com/dbtdewiqk/image/upload/v1782936767/hit_is51d7.jpg" alt="Floating Damage Indicators: hits" width="900">
 <img src="https://res.cloudinary.com/dbtdewiqk/image/upload/v1782936767/effect_xpc4w8.jpg" alt="Floating Damage Indicators: effects" width="900">
 <img src="https://res.cloudinary.com/dbtdewiqk/image/upload/v1783148317/projectile_instant_s4i0xq.jpg" alt="Floating Damage Indicators: projectiles & instant kill" width="900">

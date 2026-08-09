@@ -26,15 +26,18 @@ public class DamageCaptureServerMixin {
 
     @Inject(method = "actuallyHurt", at = @At("HEAD"))
     private void fdi$recordHealth(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        DamageCaptureState.putInitialHealth(((LivingEntity) (Object) this).getId(), ((LivingEntity) (Object) this).getHealth(), level.getGameTime());
+        LivingEntity target = (LivingEntity) (Object) this;
+        float total = target.getHealth() + target.getAbsorptionAmount();
+        DamageCaptureState.putInitialHealth(target.getUUID(), total, total >= target.getMaxHealth() - 0.01f, level.getGameTime());
     }
 
     @Inject(method = "actuallyHurt", at = @At("RETURN"))
     private void fdi$captureDamage(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
         LivingEntity target = (LivingEntity) (Object) this;
-        float initial = DamageCaptureState.removeInitialHealth(target.getId());
+        float initial = DamageCaptureState.removeInitialHealth(target.getUUID());
         if (!Float.isNaN(initial)) {
-            DamageCaptureState.putActualDamage(target.getId(), Math.max(0, initial - target.getHealth()), level.getGameTime());
+            float total = target.getHealth() + target.getAbsorptionAmount();
+            DamageCaptureState.putActualDamage(target.getUUID(), Math.max(0, initial - total), level.getGameTime());
         }
     }
 
@@ -47,8 +50,9 @@ public class DamageCaptureServerMixin {
         if (sender == null) return;
 
         LivingEntity target = (LivingEntity) (Object) this;
-        float stored = DamageCaptureState.removeActualDamage(target.getId());
+        float stored = DamageCaptureState.removeActualDamage(target.getUUID());
         float actual = Float.isNaN(stored) ? amount : stored;
+        boolean wasFullHealth = DamageCaptureState.consumeWasFullHealth(target.getUUID());
 
         Entity attacker = source.getEntity();
         long gameTime = level.getGameTime();
@@ -59,7 +63,7 @@ public class DamageCaptureServerMixin {
             Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
             DamageType type;
             ModConfig.FormatEntry killFmt = ModConfig.get().getFormat(DamageType.INSTANT_KILL);
-            boolean oneShot = target.isDeadOrDying() && (target.getHealth() + actual >= target.getMaxHealth() - 0.01f);
+            boolean oneShot = target.isDeadOrDying() && wasFullHealth;
             if (oneShot && killFmt != null && killFmt.enabled) {
                 type = DamageType.INSTANT_KILL;
             } else {
