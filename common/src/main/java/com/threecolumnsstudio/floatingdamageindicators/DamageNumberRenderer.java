@@ -46,8 +46,10 @@ public class DamageNumberRenderer {
         for (DamageNumberEntry entry : entries) {
             float smoothAge = entry.age + partialTick;
             double yOffset = smoothAge * 0.04;
-            int fadeStart = DamageNumberEntry.LIFETIME - 15;
-            float alpha = smoothAge < fadeStart ? 1.0f : 1.0f - (smoothAge - fadeStart) / 15.0f;
+            int fadeStart = DamageNumberEntry.LIFETIME - 16;
+            int fadeEnd = DamageNumberEntry.LIFETIME - 2;
+            float alpha = smoothAge <= fadeStart ? 1.0f : 1.0f - (smoothAge - fadeStart) / (fadeEnd - fadeStart);
+            alpha = Math.max(0.0f, Math.min(1.0f, alpha));
 
             Vec3 pos = entry.position;
             double x = pos.x - cameraPos.x;
@@ -60,14 +62,14 @@ public class DamageNumberRenderer {
             poseStack.scale(0.025f, -0.025f, 0.025f);
 
             int argb = DamageClassifier.getColor(entry.type);
-            int alphaInt = Math.max(0, Math.min(255, (int) (alpha * 255)));
+            int alphaInt = alpha <= 0.04f ? 0 : Math.max(0, Math.min(255, (int) (alpha * 255)));
             int color = (alphaInt << 24) | (argb & 0x00FFFFFF);
 
             int bgColor = 0;
 
             Matrix4f matrix = poseStack.last().pose();
             float textWidth = font.width(entry.cachedSequence);
-            font.drawInBatch(entry.cachedSequence, -textWidth / 2, 0, color, false, matrix, consumers, Font.DisplayMode.SEE_THROUGH, bgColor, 0x000F000F);
+            font.drawInBatch(entry.cachedSequence, -textWidth / 2, 0, color, true, matrix, consumers, Font.DisplayMode.NORMAL, bgColor, 0xF000F0);
 
             poseStack.popPose();
         }
