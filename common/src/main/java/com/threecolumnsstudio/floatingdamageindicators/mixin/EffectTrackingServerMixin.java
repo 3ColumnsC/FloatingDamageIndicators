@@ -1,6 +1,6 @@
 package com.threecolumnsstudio.floatingdamageindicators.mixin;
 
-import com.threecolumnsstudio.floatingdamageindicators.ServerDamageTracker;
+import com.threecolumnsstudio.floatingdamageindicators.server.ServerDamageTracker;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;

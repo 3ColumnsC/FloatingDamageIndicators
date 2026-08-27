@@ -1,5 +1,6 @@
 package com.threecolumnsstudio.floatingdamageindicators;
 
+import com.threecolumnsstudio.floatingdamageindicators.client.DamageNumberRenderer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;

@@ -10,6 +10,7 @@ authors = "3C Team"
 description = '''
 Adds floating damage numbers above every target you hit, and your own incoming damage too. Color-coded by damage type.
 '''
+displayURL = "https://modrinth.com/mod/floating-damage-indicators"
 logoFile = "assets/floatingdamageindicators/icon.png"
 
 [[mixins]]

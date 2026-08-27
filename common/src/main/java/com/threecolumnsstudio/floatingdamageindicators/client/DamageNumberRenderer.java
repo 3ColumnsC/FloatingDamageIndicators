@@ -1,6 +1,8 @@
-package com.threecolumnsstudio.floatingdamageindicators;
+package com.threecolumnsstudio.floatingdamageindicators.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.threecolumnsstudio.floatingdamageindicators.ModConfig;
+import com.threecolumnsstudio.floatingdamageindicators.server.ServerDamageData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -12,6 +14,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DamageNumberRenderer {
     private static final int MAX_ENTRIES = 50;
+    private static final double RISE_PER_TICK = 0.04;
+    private static final int FADE_TICKS = 15;
+    private static final float SCALE = 0.025f;
 
     private final List<DamageNumberEntry> entries = new CopyOnWriteArrayList<>();
 
@@ -43,9 +48,9 @@ public class DamageNumberRenderer {
 
         for (DamageNumberEntry entry : entries) {
             float smoothAge = entry.age + partialTick;
-            double yOffset = smoothAge * 0.04;
-            int fadeStart = DamageNumberEntry.LIFETIME - 15;
-            float alpha = smoothAge < fadeStart ? 1.0f : 1.0f - (smoothAge - fadeStart) / 15.0f;
+            double yOffset = smoothAge * RISE_PER_TICK;
+            int fadeStart = DamageNumberEntry.LIFETIME - FADE_TICKS;
+            float alpha = smoothAge < fadeStart ? 1.0f : 1.0f - (smoothAge - fadeStart) / (float) FADE_TICKS;
 
             Vec3 pos = entry.position;
             double x = pos.x - cameraPos.x;
@@ -55,14 +60,14 @@ public class DamageNumberRenderer {
             poseStack.pushPose();
             poseStack.translate(x, y, z);
             poseStack.mulPose(cameraRotation);
-            poseStack.scale(0.025f, -0.025f, 0.025f);
+            poseStack.scale(SCALE, -SCALE, SCALE);
 
             int rgb = DamageClassifier.getColor(entry.type);
             int alphaInt = Math.max(0, Math.min(255, (int) (alpha * 255)));
             int color = (alphaInt << 24) | (rgb & 0x00FFFFFF);
 
             float textWidth = font.width(entry.cachedText);
-            font.drawInBatch(entry.cachedText, -textWidth / 2, 0, color, true, poseStack.last().pose(), bufferSource, Font.DisplayMode.SEE_THROUGH, 0, 0xF000F0);
+            font.drawInBatch(entry.cachedText, -textWidth / 2, 0, color, true, poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 0xF000F0);
 
             poseStack.popPose();
         }

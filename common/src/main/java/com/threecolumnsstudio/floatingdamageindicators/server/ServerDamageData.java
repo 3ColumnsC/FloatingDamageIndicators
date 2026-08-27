@@ -1,5 +1,6 @@
-package com.threecolumnsstudio.floatingdamageindicators;
+package com.threecolumnsstudio.floatingdamageindicators.server;
 
+import com.threecolumnsstudio.floatingdamageindicators.DamageType;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
