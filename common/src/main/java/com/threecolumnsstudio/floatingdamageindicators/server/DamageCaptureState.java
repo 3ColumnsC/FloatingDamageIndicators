@@ -1,8 +1,9 @@
-package com.threecolumnsstudio.floatingdamageindicators.util;
+package com.threecolumnsstudio.floatingdamageindicators.server;
 
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
+import net.minecraft.world.entity.LivingEntity;
 
 import java.util.UUID;
 
@@ -21,6 +22,19 @@ public class DamageCaptureState {
         TIMESTAMPS.defaultReturnValue(-1L);
     }
 
+    public static void recordHealth(LivingEntity target, long gameTime) {
+        float total = target.getHealth() + target.getAbsorptionAmount();
+        putInitialHealth(target.getUUID(), total, total >= target.getMaxHealth() - 0.01f, gameTime);
+    }
+
+    public static void captureDamage(LivingEntity target, long gameTime) {
+        float initial = removeInitialHealth(target.getUUID());
+        if (!Float.isNaN(initial)) {
+            float total = target.getHealth() + target.getAbsorptionAmount();
+            putActualDamage(target.getUUID(), Math.max(0, initial - total), gameTime);
+        }
+    }
+
     public static void putInitialHealth(UUID id, float health, boolean wasFullHealth, long gameTime) {
         synchronized (INITIAL_HEALTH) {
             INITIAL_HEALTH.put(id, health);
@@ -31,7 +45,7 @@ public class DamageCaptureState {
 
     public static float removeInitialHealth(UUID id) {
         synchronized (INITIAL_HEALTH) {
-            TIMESTAMPS.remove(id);
+            TIMESTAMPS.removeLong(id);
             return INITIAL_HEALTH.removeFloat(id);
         }
     }
@@ -63,9 +77,9 @@ public class DamageCaptureState {
         TIMESTAMPS.object2LongEntrySet().removeIf(entry -> {
             if (entry.getLongValue() < threshold) {
                 UUID id = entry.getKey();
-                INITIAL_HEALTH.remove(id);
-                ACTUAL_DAMAGE.remove(id);
-                WAS_FULL_HEALTH.remove(id);
+                INITIAL_HEALTH.removeFloat(id);
+                ACTUAL_DAMAGE.removeFloat(id);
+                WAS_FULL_HEALTH.removeBoolean(id);
                 return true;
             }
             return false;

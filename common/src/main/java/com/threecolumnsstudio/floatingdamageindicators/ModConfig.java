@@ -1,7 +1,9 @@
 package com.threecolumnsstudio.floatingdamageindicators;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +11,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
+import java.util.EnumMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ModConfig {
@@ -18,7 +21,7 @@ public class ModConfig {
     public boolean showDamage = true;
     public boolean showReceivedDamage = true;
 
-    public Map<String, FormatEntry> formats = defaultFormats();
+    public Map<DamageType, FormatEntry> formats = defaultFormats();
 
     private static volatile ModConfig INSTANCE = new ModConfig();
 
@@ -28,39 +31,53 @@ public class ModConfig {
 
     public static void load(Path configDir) {
         Path file = configDir.resolve("floatingdamageindicators.json");
-        if (Files.exists(file)) {
-            try (Reader reader = Files.newBufferedReader(file)) {
-                JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
-                ModConfig loaded = new ModConfig();
-
-                if (root.has("showDamage"))
-                    loaded.showDamage = root.get("showDamage").getAsBoolean();
-                if (root.has("showReceivedDamage"))
-                    loaded.showReceivedDamage = root.get("showReceivedDamage").getAsBoolean();
-
-                if (root.has("formats")) {
-                    JsonObject fmts = root.getAsJsonObject("formats");
-                    loaded.formats = new LinkedHashMap<>();
-                    for (var entry : fmts.entrySet()) {
-                        JsonObject f = entry.getValue().getAsJsonObject();
-                        loaded.formats.put(entry.getKey(), new FormatEntry(
-                            jsonBool(f, "enabled", true),
-                            jsonStr(f, "prefix", ""),
-                            jsonStr(f, "color", "FFFFFF"),
-                            jsonBool(f, "showDamage", true)
-                        ));
-                    }
-                }
-
-                INSTANCE = loaded;
-                LOGGER.info("Config loaded from {}", file);
-            } catch (Exception e) {
-                LOGGER.error("Failed to load config, regenerating with defaults", e);
-                INSTANCE = new ModConfig();
-                save(configDir);
-            }
-        } else {
+        if (!Files.exists(file)) {
             save(configDir);
+            return;
+        }
+        try (Reader reader = Files.newBufferedReader(file)) {
+            JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
+            ModConfig loaded = new ModConfig();
+            loaded.showDamage = jsonBool(root, "showDamage", true);
+            loaded.showReceivedDamage = jsonBool(root, "showReceivedDamage", true);
+            if (root.has("formats") && root.get("formats").isJsonObject()) {
+                loadFormats(root.getAsJsonObject("formats"), loaded);
+            }
+            INSTANCE = loaded;
+            LOGGER.info("Config loaded from {}", file);
+        } catch (Exception e) {
+            LOGGER.error("Failed to load config {}, regenerating with defaults", file, e);
+            INSTANCE = new ModConfig();
+            save(configDir);
+        }
+    }
+
+    private static void loadFormats(JsonObject formats, ModConfig loaded) {
+        Map<DamageType, FormatEntry> parsed = new EnumMap<>(DamageType.class);
+        for (var entry : formats.entrySet()) {
+            DamageType type = parseDamageType(entry.getKey());
+            if (type == null) continue;
+            try {
+                JsonObject f = entry.getValue().getAsJsonObject();
+                parsed.put(type, new FormatEntry(
+                    jsonBool(f, "enabled", true),
+                    jsonStr(f, "prefix", ""),
+                    jsonStr(f, "color", "FFFFFF"),
+                    jsonBool(f, "showDamage", true)
+                ));
+            } catch (Exception ex) {
+                LOGGER.warn("Skipping invalid format entry '{}'", entry.getKey());
+            }
+        }
+        loaded.formats = parsed;
+    }
+
+    private static DamageType parseDamageType(String key) {
+        try {
+            return DamageType.valueOf(key);
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn("Ignoring unknown damage type '{}' in config", key);
+            return null;
         }
     }
 
@@ -106,30 +123,32 @@ public class ModConfig {
                 .replace("\t", "\\t");
     }
 
-    private static Map<String, FormatEntry> defaultFormats() {
-        Map<String, FormatEntry> map = new LinkedHashMap<>();
-        map.put("NORMAL",       new FormatEntry(true, "",           "FF3333", true));
-        map.put("CRITICAL",     new FormatEntry(true, "\u2726",     "FFD700", true));
-        map.put("PROJECTILE",   new FormatEntry(true, "\u27B5",     "00FFFF", true));
-        map.put("FIRE",         new FormatEntry(true, "\u2668",     "FF6600", true));
-        map.put("POISON",       new FormatEntry(true, "\u2697",     "4A9E2F", true));
-        map.put("WITHER",       new FormatEntry(true, "\u2620",     "3C3C3C", true));
-        map.put("RECEIVING",    new FormatEntry(true, "(You) ",    "AAAAAA", true));
-        map.put("INSTANT_KILL", new FormatEntry(true, "\u26A1 INSTANT KILL", "FFD700", false));
+    private static Map<DamageType, FormatEntry> defaultFormats() {
+        Map<DamageType, FormatEntry> map = new EnumMap<>(DamageType.class);
+        for (DamageType type : DamageType.values()) {
+            String color = String.format(Locale.ROOT, "%06X", type.defaultColor());
+            map.put(type, new FormatEntry(true, type.defaultPrefix(), color, type.defaultShowDamage()));
+        }
         return map;
     }
 
     private static boolean jsonBool(JsonObject obj, String key, boolean def) {
-        return obj.has(key) ? obj.get(key).getAsBoolean() : def;
+        JsonElement el = obj.get(key);
+        if (el == null || el.isJsonNull() || !el.isJsonPrimitive()) return def;
+        JsonPrimitive p = el.getAsJsonPrimitive();
+        if (p.isBoolean()) return p.getAsBoolean();
+        if (p.isNumber()) return p.getAsInt() != 0;
+        return Boolean.parseBoolean(p.getAsString());
     }
 
     private static String jsonStr(JsonObject obj, String key, String def) {
-        return obj.has(key) ? obj.get(key).getAsString() : def;
+        JsonElement el = obj.get(key);
+        if (el != null && el.isJsonPrimitive()) return el.getAsString();
+        return def;
     }
 
     public FormatEntry getFormat(DamageType type) {
-        if (formats == null) return null;
-        return formats.get(type.name());
+        return formats.get(type);
     }
 
     public static class FormatEntry {

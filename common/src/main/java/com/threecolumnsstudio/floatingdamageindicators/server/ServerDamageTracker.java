@@ -1,4 +1,4 @@
-package com.threecolumnsstudio.floatingdamageindicators;
+package com.threecolumnsstudio.floatingdamageindicators.server;
 
 import java.util.Map;
 import java.util.UUID;

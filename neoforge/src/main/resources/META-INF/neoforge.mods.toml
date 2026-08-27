@@ -1,6 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
 license = "MIT"
+issueTrackerURL = "https://github.com/3ColumnsC/FloatingDamageIndicators/issues"
 
 [[mods]]
 modId = "floatingdamageindicators"
@@ -10,7 +11,9 @@ authors = "3C Team"
 description = '''
 Adds floating damage numbers above every target you hit, and your own incoming damage too. Color-coded by damage type.
 '''
-logoFile = "assets/floatingdamageindicators/icon.png"
+iconFile = "assets/floatingdamageindicators/icon.png"
+bannerFile = "assets/floatingdamageindicators/icon.png"
+displayURL = "https://modrinth.com/mod/floating-damage-indicators"
 
 [[mixins]]
 config = "floatingdamageindicators.mixins.json"
