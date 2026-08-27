@@ -1,6 +1,6 @@
 package com.threecolumnsstudio.floatingdamageindicators.mixin;
 
-import com.threecolumnsstudio.floatingdamageindicators.util.DamageCaptureState;
+import com.threecolumnsstudio.floatingdamageindicators.server.DamageCaptureState;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,15 +15,11 @@ public class DamageCapturePlayerMixin {
 
     @Inject(method = "actuallyHurt", at = @At("HEAD"))
     private void fdi$recordPlayerHealth(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        DamageCaptureState.putInitialHealth(((LivingEntity) (Object) this).getId(), ((LivingEntity) (Object) this).getHealth(), level.getGameTime());
+        DamageCaptureState.recordHealth((LivingEntity) (Object) this, level.getGameTime());
     }
 
     @Inject(method = "actuallyHurt", at = @At("RETURN"))
     private void fdi$capturePlayerDamage(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        LivingEntity target = (LivingEntity) (Object) this;
-        float initial = DamageCaptureState.removeInitialHealth(target.getId());
-        if (!Float.isNaN(initial)) {
-            DamageCaptureState.putActualDamage(target.getId(), Math.max(0, initial - target.getHealth()), level.getGameTime());
-        }
+        DamageCaptureState.captureDamage((LivingEntity) (Object) this, level.getGameTime());
     }
 }

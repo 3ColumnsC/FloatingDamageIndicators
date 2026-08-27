@@ -1,7 +1,8 @@
-package com.threecolumnsstudio.floatingdamageindicators.util;
+package com.threecolumnsstudio.floatingdamageindicators.server;
 
 import it.unimi.dsi.fastutil.ints.Int2FloatOpenHashMap;
 import it.unimi.dsi.fastutil.ints.Int2LongOpenHashMap;
+import net.minecraft.world.entity.LivingEntity;
 
 public class DamageCaptureState {
     private static final int MAX_SIZE = 500;
@@ -14,6 +15,17 @@ public class DamageCaptureState {
         INITIAL_HEALTH.defaultReturnValue(Float.NaN);
         ACTUAL_DAMAGE.defaultReturnValue(Float.NaN);
         TIMESTAMPS.defaultReturnValue(-1L);
+    }
+
+    public static void recordHealth(LivingEntity target, long gameTime) {
+        putInitialHealth(target.getId(), target.getHealth(), gameTime);
+    }
+
+    public static void captureDamage(LivingEntity target, long gameTime) {
+        float initial = removeInitialHealth(target.getId());
+        if (!Float.isNaN(initial)) {
+            putActualDamage(target.getId(), Math.max(0, initial - target.getHealth()), gameTime);
+        }
     }
 
     public static void putInitialHealth(int id, float health, long gameTime) {
