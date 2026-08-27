@@ -1,5 +1,6 @@
-package com.threecolumnsstudio.floatingdamageindicators;
+package com.threecolumnsstudio.floatingdamageindicators.server;
 
+import com.threecolumnsstudio.floatingdamageindicators.DamageType;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;

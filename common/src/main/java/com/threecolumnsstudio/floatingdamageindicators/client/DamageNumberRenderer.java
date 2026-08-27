@@ -1,10 +1,11 @@
-package com.threecolumnsstudio.floatingdamageindicators;
+package com.threecolumnsstudio.floatingdamageindicators.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.threecolumnsstudio.floatingdamageindicators.ModConfig;
+import com.threecolumnsstudio.floatingdamageindicators.server.ServerDamageData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
@@ -14,6 +15,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DamageNumberRenderer {
     private static final int MAX_ENTRIES = 50;
+    private static final double RISE_PER_TICK = 0.04;
+    private static final int FADE_START_OFFSET = 16;
+    private static final int FADE_END_OFFSET = 2;
+    private static final float MIN_ALPHA = 0.04f;
+    private static final float SCALE = 0.025f;
 
     private final List<DamageNumberEntry> entries = new CopyOnWriteArrayList<>();
 
@@ -45,11 +51,14 @@ public class DamageNumberRenderer {
 
         for (DamageNumberEntry entry : entries) {
             float smoothAge = entry.age + partialTick;
-            double yOffset = smoothAge * 0.04;
-            int fadeStart = DamageNumberEntry.LIFETIME - 16;
-            int fadeEnd = DamageNumberEntry.LIFETIME - 2;
+            double yOffset = smoothAge * RISE_PER_TICK;
+            int fadeStart = DamageNumberEntry.LIFETIME - FADE_START_OFFSET;
+            int fadeEnd = DamageNumberEntry.LIFETIME - FADE_END_OFFSET;
             float alpha = smoothAge <= fadeStart ? 1.0f : 1.0f - (smoothAge - fadeStart) / (fadeEnd - fadeStart);
             alpha = Math.max(0.0f, Math.min(1.0f, alpha));
+
+            int alphaInt = alpha <= MIN_ALPHA ? 0 : Math.max(0, Math.min(255, (int) (alpha * 255)));
+            if (alphaInt == 0) continue;
 
             Vec3 pos = entry.position;
             double x = pos.x - cameraPos.x;
@@ -59,10 +68,9 @@ public class DamageNumberRenderer {
             poseStack.pushPose();
             poseStack.translate(x, y, z);
             poseStack.mulPose(cameraRotation);
-            poseStack.scale(0.025f, -0.025f, 0.025f);
+            poseStack.scale(SCALE, -SCALE, SCALE);
 
             int argb = DamageClassifier.getColor(entry.type);
-            int alphaInt = alpha <= 0.04f ? 0 : Math.max(0, Math.min(255, (int) (alpha * 255)));
             int color = (alphaInt << 24) | (argb & 0x00FFFFFF);
 
             int bgColor = 0;

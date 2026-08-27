@@ -2,7 +2,7 @@ package com.threecolumnsstudio.floatingdamageindicators.network;
 
 import com.threecolumnsstudio.floatingdamageindicators.DamageType;
 import com.threecolumnsstudio.floatingdamageindicators.FloatingDamageIndicators;
-import com.threecolumnsstudio.floatingdamageindicators.ServerDamageData;
+import com.threecolumnsstudio.floatingdamageindicators.server.ServerDamageData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
