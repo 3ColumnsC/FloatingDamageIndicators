@@ -8,6 +8,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.SubmitNodeStorage;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class DamageNumberRenderer {
 
             poseStack.pushPose();
             poseStack.translate(x, y, z);
-            poseStack.mulPose(cameraRotation);
+            poseStack.mulPose(new Matrix4f().rotation(cameraRotation));
             poseStack.scale(SCALE, -SCALE, SCALE);
 
             int rgb = DamageClassifier.getColor(entry.type);

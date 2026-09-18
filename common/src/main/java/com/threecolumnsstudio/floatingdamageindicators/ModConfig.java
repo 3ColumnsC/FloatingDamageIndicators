@@ -46,7 +46,7 @@ public class ModConfig {
             INSTANCE = loaded;
             LOGGER.info("Config loaded from {}", file);
         } catch (Exception e) {
-            LOGGER.error("Failed to load config {}, regenerating with defaults", file, e);
+            LOGGER.error("Failed to load config, regenerating with defaults", e);
             INSTANCE = new ModConfig();
             save(configDir);
         }
@@ -86,9 +86,8 @@ public class ModConfig {
         try {
             Files.createDirectories(configDir);
             Files.writeString(file, toJson());
-            LOGGER.info("Config saved to {}", file);
         } catch (IOException e) {
-            LOGGER.error("Failed to save config to {}", file, e);
+            LOGGER.error("Failed to save config");
         }
     }
 
