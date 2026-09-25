@@ -78,11 +78,25 @@ Each format entry:
 ### Fabric
 
 - Fabric API
+- Mod Menu (optional)
 - (+26.X) Java 25 or newer
 
 ### NeoForge
 
 - (+26.X) Java 25 or newer
+
+---
+
+## 💬 Suggestions & Issues
+
+If you have an idea, a suggestion, or found a bug, feel free to leave a comment on the CurseForge page or open an issue on the GitHub repository.
+
+---
+
+## ❓ FAQ
+
+**Can I use this mod in a public modpack?** <br>
+Yes! You're free to include it in any public or private modpack, no permission needed.
 
 ---
 
