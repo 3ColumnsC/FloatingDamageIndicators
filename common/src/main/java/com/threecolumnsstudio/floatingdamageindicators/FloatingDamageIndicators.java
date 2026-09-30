@@ -19,10 +19,12 @@ public final class FloatingDamageIndicators {
     }
 
     public static volatile DamagePacketSender DAMAGE_PACKET_SENDER;
+    public static volatile Path CONFIG_DIR;
 
     private FloatingDamageIndicators() {}
 
     public static void init(Path configDir) {
+        CONFIG_DIR = configDir;
         ModConfig.load(configDir);
         LOGGER.info("{} initialized", MOD_ID);
     }

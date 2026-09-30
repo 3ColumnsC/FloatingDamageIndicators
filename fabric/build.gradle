@@ -3,6 +3,13 @@ plugins {
     id 'maven-publish'
 }
 
+repositories {
+    maven {
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com/releases/'
+    }
+}
+
 base {
     archivesName = "fdi-fabric"
 }
@@ -30,6 +37,8 @@ dependencies {
 
     // Common classes
     implementation project(':common')
+
+    implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {
