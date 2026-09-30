@@ -1,6 +1,6 @@
 # Floating Damage Indicators
 
-Floating damage numbers above every target you hit, and your own incoming damage too — color-coded by damage type.
+Floating damage numbers above every target you hit, and your own incoming damage too. Color-coded by damage type.
 
 > **Note:** FDI must be installed on both the server and client for multiplayer servers.
 
@@ -12,10 +12,10 @@ Floating damage numbers above every target you hit, and your own incoming damage
 
 ## ⚡ Features
 
-- Floating damage numbers above any entity you hit
-- See your own incoming damage too
+- Floating damage numbers above any entity you hit.
+- See your own incoming damage too.
 - Color-coded by damage type.
-- Configurable — choose which numbers show up.
+- Configurable. Choose which numbers show up.
 - Works in both singleplayer and dedicated multiplayer.
 
 | Type         | Icon           | Color      | Example                      |
@@ -33,6 +33,12 @@ Floating damage numbers above every target you hit, and your own incoming damage
 
 ## ⚙️ Configuration
 
+The easiest way to configure Floating Damage Indicators is in-game: open **Mod Menu** (Fabric) or the **Config** button in the mods list (NeoForge).
+
+> **Note:** The in-game screen is intentionally minimal. It only shows the two main toggles and a button to open the config file. Colors, prefixes and per-type options are edited directly in the config file (see below).
+
+
+
 After launching the game once, a configuration file will be generated:
 
 ```
@@ -41,7 +47,9 @@ config/floatingdamageindicators.json
 
 Available options:
 
-> **Note:** The `formats` section is **client-side only** — the server only reads `showDamage`, `showReceivedDamage`, and `INSTANT_KILL`'s `enabled`. To customize prefixes, colors, or `showDamage`, edit the config file **on your client**.
+> **Important:** `showDamage` is the **master switch**. If it is set to `false`, **no numbers are shown at all**, including your own incoming damage. `showReceivedDamage` only takes effect while `showDamage` is `true`, so keep `showDamage` enabled to see the damage you take.
+
+> **Note:** The `formats` section is **client-side only**. The server only reads `showDamage`, `showReceivedDamage`, and `INSTANT_KILL`'s `enabled`. To customize prefixes, colors, or `showDamage`, edit the config file **on your client**.
 >
 > **Tip:** Some Unicode characters or emojis may not display correctly depending on your Minecraft font. If a character shows as a blank square, try a different one. Stick to basic Unicode symbols for best results.
 >
@@ -66,10 +74,10 @@ Available options:
 ```
 
 Each format entry:
-- **enabled** — show/hide this damage type entirely
-- **prefix** — custom text shown before (or instead of) the number
-- **color** — 6-digit hex color (RGB)
-- **showDamage** — if false, only the prefix is shown (no damage number)
+- **enabled**: show/hide this damage type entirely
+- **prefix**: custom text shown before (or instead of) the number
+- **color**: 6-digit hex color (RGB)
+- **showDamage**: if false, only the prefix is shown (no damage number)
 
 ---
 
