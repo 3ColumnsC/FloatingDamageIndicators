@@ -1,5 +1,7 @@
 package com.threecolumnsstudio.floatingdamageindicators;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -18,6 +20,9 @@ import java.util.Map;
 public class ModConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger("FDI-Config");
 
+    public static final String FILE_NAME = "floatingdamageindicators.json";
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+
     public boolean showDamage = true;
     public boolean showReceivedDamage = true;
 
@@ -30,7 +35,7 @@ public class ModConfig {
     }
 
     public static void load(Path configDir) {
-        Path file = configDir.resolve("floatingdamageindicators.json");
+        Path file = configDir.resolve(FILE_NAME);
         if (!Files.exists(file)) {
             save(configDir);
             return;
@@ -44,9 +49,9 @@ public class ModConfig {
                 loadFormats(root.getAsJsonObject("formats"), loaded);
             }
             INSTANCE = loaded;
-            LOGGER.info("Config loaded from {}", file);
+            LOGGER.info("Config loaded from {}", file.getFileName());
         } catch (Exception e) {
-            LOGGER.error("Failed to load config {}, regenerating with defaults", file, e);
+            LOGGER.error("Failed to load config ({}), regenerating with defaults", e.getClass().getSimpleName());
             INSTANCE = new ModConfig();
             save(configDir);
         }
@@ -82,13 +87,37 @@ public class ModConfig {
     }
 
     public static void save(Path configDir) {
-        Path file = configDir.resolve("floatingdamageindicators.json");
+        Path file = configDir.resolve(FILE_NAME);
         try {
             Files.createDirectories(configDir);
             Files.writeString(file, toJson());
-            LOGGER.info("Config saved to {}", file);
+            LOGGER.info("Config saved to {}", file.getFileName());
         } catch (IOException e) {
-            LOGGER.error("Failed to save config to {}", file, e);
+            LOGGER.error("Failed to save config ({})", e.getClass().getSimpleName());
+        }
+    }
+
+    public static void updateToggles(Path configDir) {
+        Path file = configDir.resolve(FILE_NAME);
+        try {
+            Files.createDirectories(configDir);
+            JsonObject root = new JsonObject();
+            if (Files.exists(file)) {
+                try (Reader reader = Files.newBufferedReader(file)) {
+                    JsonElement parsed = JsonParser.parseReader(reader);
+                    if (parsed != null && parsed.isJsonObject()) {
+                        root = parsed.getAsJsonObject();
+                    }
+                } catch (Exception e) {
+                    LOGGER.warn("Config file could not be read ({}); saving toggles only", e.getClass().getSimpleName());
+                    root = new JsonObject();
+                }
+            }
+            root.addProperty("showDamage", INSTANCE.showDamage);
+            root.addProperty("showReceivedDamage", INSTANCE.showReceivedDamage);
+            Files.writeString(file, GSON.toJson(root));
+        } catch (IOException e) {
+            LOGGER.error("Failed to save config ({})", e.getClass().getSimpleName());
         }
     }
 

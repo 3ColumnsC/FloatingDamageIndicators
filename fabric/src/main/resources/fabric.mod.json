@@ -21,6 +21,9 @@
 		],
 		"client": [
 			"com.threecolumnsstudio.floatingdamageindicators.fabric.FloatingDamageIndicatorsFabricClient"
+		],
+		"modmenu": [
+			"com.threecolumnsstudio.floatingdamageindicators.fabric.screen.FloatingDamageIndicatorsModMenu"
 		]
 	},
 	"mixins": [
@@ -31,5 +34,8 @@
 		"minecraft": "~1.21.11",
 		"java": ">=21",
 		"fabric-api": ">=0.141.3"
+	},
+	"suggests": {
+		"modmenu": "*"
 	}
 }
