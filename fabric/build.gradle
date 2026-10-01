@@ -3,6 +3,13 @@ plugins {
     id 'maven-publish'
 }
 
+repositories {
+    maven {
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com/releases/'
+    }
+}
+
 base {
     archivesName = "fdi-fabric"
 }
@@ -32,6 +39,9 @@ dependencies {
 
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+    modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
 
     // Common classes
     implementation project(path: ':common', configuration: 'namedElements')

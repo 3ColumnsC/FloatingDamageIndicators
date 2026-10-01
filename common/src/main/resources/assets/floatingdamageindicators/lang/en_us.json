@@ -1,1 +1,13 @@
-{"modmenu.descriptionTranslation.floatingdamageindicators":"Adds floating damage numbers above every target you hit, and your own incoming damage too. Color-coded by damage type."}
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Adds floating damage numbers above every target you hit, and your own incoming damage too. Color-coded by damage type.",
+  "floatingdamageindicators.config.title": "Floating Damage Indicators",
+  "floatingdamageindicators.config.tab.general": "General",
+  "floatingdamageindicators.config.show_damage": "Show damage numbers",
+  "floatingdamageindicators.config.show_received_damage": "Show incoming damage",
+  "floatingdamageindicators.config.server_side": "In multiplayer this is controlled by the server's config.",
+  "floatingdamageindicators.config.restart_notice": "Changing colors, prefixes or damage type options needs a full game restart.",
+  "floatingdamageindicators.config.restart_required": "Requires restarting the game.",
+  "floatingdamageindicators.config.open_config": "Open config file",
+  "floatingdamageindicators.config.open_config.tooltip": "Edit colors, prefixes and per-type options in the config file.",
+  "floatingdamageindicators.config.apply": "Apply"
+}
