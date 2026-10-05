@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "आपके द्वारा हिट किए गए हर लक्ष्य के ऊपर तैरते नुकसान के अंक जोड़ता है, और आपको मिलने वाला नुकसान भी। नुकसान के प्रकार के अनुसार रंग।",
+  "floatingdamageindicators.config.title": "तैरते नुकसान संकेतक",
+  "floatingdamageindicators.config.tab.general": "सामान्य",
+  "floatingdamageindicators.config.show_damage": "नुकसान के अंक दिखाएँ",
+  "floatingdamageindicators.config.show_received_damage": "मिलने वाला नुकसान दिखाएँ",
+  "floatingdamageindicators.config.server_side": "मल्टीप्लेयर में यह सर्वर की कॉन्फ़िग द्वारा नियंत्रित होता है।",
+  "floatingdamageindicators.config.restart_notice": "रंग, उपसर्ग या नुकसान-प्रकार विकल्प बदलने के लिए गेम को पूरी तरह पुनः आरंभ करना होगा।",
+  "floatingdamageindicators.config.restart_required": "गेम को पुनः आरंभ करना आवश्यक है।",
+  "floatingdamageindicators.config.open_config": "कॉन्फ़िग फ़ाइल खोलें",
+  "floatingdamageindicators.config.open_config.tooltip": "कॉन्फ़िग फ़ाइल में रंग, उपसर्ग और प्रति-प्रकार विकल्प संपादित करें।",
+  "floatingdamageindicators.config.apply": "लागू करें"
+}

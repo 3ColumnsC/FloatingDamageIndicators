@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Adaugă numere de daune plutitoare deasupra fiecărei ținte pe care o lovești, precum și daunele tale primite. Colorate în funcție de tipul de daune.",
+  "floatingdamageindicators.config.title": "Indicatori de Daune Plutitoare",
+  "floatingdamageindicators.config.tab.general": "General",
+  "floatingdamageindicators.config.show_damage": "Arată numerele de daune",
+  "floatingdamageindicators.config.show_received_damage": "Arată daunele primite",
+  "floatingdamageindicators.config.server_side": "În multiplayer, acest lucru este controlat de configurația serverului.",
+  "floatingdamageindicators.config.restart_notice": "Schimbarea culorilor, prefixelor sau opțiunilor pe tip de daune necesită repornirea completă a jocului.",
+  "floatingdamageindicators.config.restart_required": "Necesită repornirea jocului.",
+  "floatingdamageindicators.config.open_config": "Deschide fișierul de configurare",
+  "floatingdamageindicators.config.open_config.tooltip": "Editează culorile, prefixele și opțiunile pe tip în fișierul de configurare.",
+  "floatingdamageindicators.config.apply": "Aplică"
+}

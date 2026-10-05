@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "공격한 모든 대상 위에 떠오르는 데미지 숫자를 표시하며, 자신이 받은 피해도 표시합니다. 피해 유형에 따라 색상이 지정됩니다.",
+  "floatingdamageindicators.config.title": "떠오르는 데미지 표시기",
+  "floatingdamageindicators.config.tab.general": "일반",
+  "floatingdamageindicators.config.show_damage": "데미지 숫자 표시",
+  "floatingdamageindicators.config.show_received_damage": "받은 피해 표시",
+  "floatingdamageindicators.config.server_side": "멀티플레이에서는 서버 설정에 의해 제어됩니다.",
+  "floatingdamageindicators.config.restart_notice": "색상, 접두사 또는 피해 유형 옵션을 변경하려면 게임을 완전히 다시 시작해야 합니다.",
+  "floatingdamageindicators.config.restart_required": "게임을 다시 시작해야 합니다.",
+  "floatingdamageindicators.config.open_config": "설정 파일 열기",
+  "floatingdamageindicators.config.open_config.tooltip": "설정 파일에서 색상, 접두사 및 유형별 옵션을 편집하세요.",
+  "floatingdamageindicators.config.apply": "적용"
+}

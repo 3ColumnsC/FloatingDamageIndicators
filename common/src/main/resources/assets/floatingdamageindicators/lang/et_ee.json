@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Lisab hõljuvad kahjunumbrid iga tabatud sihtmärgi kohale, samuti sinu enda saadud kahju. Värvitud kahjutüübi järgi.",
+  "floatingdamageindicators.config.title": "Hõljuvad Kahjuindikaatorid",
+  "floatingdamageindicators.config.tab.general": "Üldine",
+  "floatingdamageindicators.config.show_damage": "Näita kahjunumbreid",
+  "floatingdamageindicators.config.show_received_damage": "Näita saadud kahju",
+  "floatingdamageindicators.config.server_side": "Mitmikmängus juhitakse seda serveri seadistusega.",
+  "floatingdamageindicators.config.restart_notice": "Värvide, eesliidete või kahjutüübi valikute muutmine nõuab mängu täielikku taaskäivitamist.",
+  "floatingdamageindicators.config.restart_required": "Nõuab mängu taaskäivitamist.",
+  "floatingdamageindicators.config.open_config": "Ava seadistusfail",
+  "floatingdamageindicators.config.open_config.tooltip": "Muuda värve, eesliiteid ja tüübipõhiseid valikuid seadistusfailis.",
+  "floatingdamageindicators.config.apply": "Rakenda"
+}
