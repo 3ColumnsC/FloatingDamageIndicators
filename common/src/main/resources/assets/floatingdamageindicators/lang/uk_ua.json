@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Додає плаваючі числа шкоди над кожною ціллю, яку ви влучаєте, а також вашу власну отриману шкоду. Забарвлені за типом шкоди.",
+  "floatingdamageindicators.config.title": "Плаваючі Індикатори Шкоди",
+  "floatingdamageindicators.config.tab.general": "Загальні",
+  "floatingdamageindicators.config.show_damage": "Показувати числа шкоди",
+  "floatingdamageindicators.config.show_received_damage": "Показувати отриману шкоду",
+  "floatingdamageindicators.config.server_side": "У багатокористувацькій грі це контролюється конфігурацією сервера.",
+  "floatingdamageindicators.config.restart_notice": "Зміна кольорів, префіксів або параметрів за типом шкоди потребує повного перезапуску гри.",
+  "floatingdamageindicators.config.restart_required": "Потребує перезапуску гри.",
+  "floatingdamageindicators.config.open_config": "Відкрити файл конфігурації",
+  "floatingdamageindicators.config.open_config.tooltip": "Редагуйте кольори, префікси та параметри за типами у файлі конфігурації.",
+  "floatingdamageindicators.config.apply": "Застосувати"
+}

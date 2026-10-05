@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Dodaje lebdeće brojeve štete iznad svake mete koju pogodiš, kao i vlastitu primljenu štetu. Obojeno prema vrsti štete.",
+  "floatingdamageindicators.config.title": "Lebdeći Pokazatelji Štete",
+  "floatingdamageindicators.config.tab.general": "Općenito",
+  "floatingdamageindicators.config.show_damage": "Prikaži brojeve štete",
+  "floatingdamageindicators.config.show_received_damage": "Prikaži primljenu štetu",
+  "floatingdamageindicators.config.server_side": "U višeigračkom načinu to kontrolira konfiguracija poslužitelja.",
+  "floatingdamageindicators.config.restart_notice": "Promjena boja, prefiksa ili opcija po vrsti štete zahtijeva potpuno ponovno pokretanje igre.",
+  "floatingdamageindicators.config.restart_required": "Zahtijeva ponovno pokretanje igre.",
+  "floatingdamageindicators.config.open_config": "Otvori konfiguracijsku datoteku",
+  "floatingdamageindicators.config.open_config.tooltip": "Uredi boje, prefikse i opcije po vrsti u konfiguracijskoj datoteci.",
+  "floatingdamageindicators.config.apply": "Primijeni"
+}

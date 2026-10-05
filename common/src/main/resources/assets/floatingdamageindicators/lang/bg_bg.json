@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Добавя плаващи числа за щети над всяка цел, която удариш, както и собствените ти получени щети. Оцветени според типа щети.",
+  "floatingdamageindicators.config.title": "Плаващи Индикатори за Щети",
+  "floatingdamageindicators.config.tab.general": "Общи",
+  "floatingdamageindicators.config.show_damage": "Показвай числата за щети",
+  "floatingdamageindicators.config.show_received_damage": "Показвай получените щети",
+  "floatingdamageindicators.config.server_side": "В мултиплейър това се контролира от конфигурацията на сървъра.",
+  "floatingdamageindicators.config.restart_notice": "Промяната на цветове, префикси или опции за тип щети изисква пълно рестартиране на играта.",
+  "floatingdamageindicators.config.restart_required": "Изисква рестартиране на играта.",
+  "floatingdamageindicators.config.open_config": "Отвори конфигурационния файл",
+  "floatingdamageindicators.config.open_config.tooltip": "Редактирай цветове, префикси и опции по тип в конфигурационния файл.",
+  "floatingdamageindicators.config.apply": "Приложи"
+}

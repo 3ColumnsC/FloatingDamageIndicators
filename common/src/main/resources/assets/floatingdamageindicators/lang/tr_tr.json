@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Vurduğun her hedefin üzerinde uçan hasar sayıları ekler ve kendi aldığın hasarı da gösterir. Hasar türüne göre renklendirilir.",
+  "floatingdamageindicators.config.title": "Uçan Hasar Göstergeleri",
+  "floatingdamageindicators.config.tab.general": "Genel",
+  "floatingdamageindicators.config.show_damage": "Hasar sayılarını göster",
+  "floatingdamageindicators.config.show_received_damage": "Alınan hasarı göster",
+  "floatingdamageindicators.config.server_side": "Çok oyunculu modda bu, sunucunun yapılandırması tarafından kontrol edilir.",
+  "floatingdamageindicators.config.restart_notice": "Renkleri, önekleri veya hasar türü seçeneklerini değiştirmek oyunun tamamen yeniden başlatılmasını gerektirir.",
+  "floatingdamageindicators.config.restart_required": "Oyunun yeniden başlatılmasını gerektirir.",
+  "floatingdamageindicators.config.open_config": "Yapılandırma dosyasını aç",
+  "floatingdamageindicators.config.open_config.tooltip": "Yapılandırma dosyasında renkleri, önekleri ve türe göre seçenekleri düzenle.",
+  "floatingdamageindicators.config.apply": "Uygula"
+}

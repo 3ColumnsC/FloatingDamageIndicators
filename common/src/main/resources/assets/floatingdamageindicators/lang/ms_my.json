@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Menambah nombor kerosakan terapung di atas setiap sasaran yang anda pukul, serta kerosakan yang anda terima. Diwarnakan mengikut jenis kerosakan.",
+  "floatingdamageindicators.config.title": "Penunjuk Kerosakan Terapung",
+  "floatingdamageindicators.config.tab.general": "Umum",
+  "floatingdamageindicators.config.show_damage": "Tunjuk nombor kerosakan",
+  "floatingdamageindicators.config.show_received_damage": "Tunjuk kerosakan diterima",
+  "floatingdamageindicators.config.server_side": "Dalam berbilang pemain, ini dikawal oleh konfigurasi pelayan.",
+  "floatingdamageindicators.config.restart_notice": "Menukar warna, awalan atau pilihan jenis kerosakan memerlukan mula semula permainan sepenuhnya.",
+  "floatingdamageindicators.config.restart_required": "Memerlukan mula semula permainan.",
+  "floatingdamageindicators.config.open_config": "Buka fail konfigurasi",
+  "floatingdamageindicators.config.open_config.tooltip": "Edit warna, awalan dan pilihan mengikut jenis dalam fail konfigurasi.",
+  "floatingdamageindicators.config.apply": "Guna"
+}
