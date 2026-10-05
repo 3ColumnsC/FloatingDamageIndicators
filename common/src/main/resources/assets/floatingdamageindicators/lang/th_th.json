@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "เพิ่มตัวเลขความเสียหายลอยเหนือเป้าหมายทุกตัวที่คุณโจมตี รวมถึงความเสียหายที่คุณได้รับด้วย ระบายสีตามประเภทความเสียหาย",
+  "floatingdamageindicators.config.title": "ตัวบ่งชี้ความเสียหายลอย",
+  "floatingdamageindicators.config.tab.general": "ทั่วไป",
+  "floatingdamageindicators.config.show_damage": "แสดงตัวเลขความเสียหาย",
+  "floatingdamageindicators.config.show_received_damage": "แสดงความเสียหายที่ได้รับ",
+  "floatingdamageindicators.config.server_side": "ในโหมดผู้เล่นหลายคน สิ่งนี้ถูกควบคุมโดยการตั้งค่าของเซิร์ฟเวอร์",
+  "floatingdamageindicators.config.restart_notice": "การเปลี่ยนสี คำนำหน้า หรือตัวเลือกตามประเภทความเสียหายต้องรีสตาร์ทเกมใหม่ทั้งหมด",
+  "floatingdamageindicators.config.restart_required": "ต้องรีสตาร์ทเกม",
+  "floatingdamageindicators.config.open_config": "เปิดไฟล์การตั้งค่า",
+  "floatingdamageindicators.config.open_config.tooltip": "แก้ไขสี คำนำหน้า และตัวเลือกตามประเภทในไฟล์การตั้งค่า",
+  "floatingdamageindicators.config.apply": "นำไปใช้"
+}

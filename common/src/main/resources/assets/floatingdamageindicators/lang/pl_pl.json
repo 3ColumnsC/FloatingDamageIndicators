@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Dodaje unoszące się liczby obrażeń nad każdym trafionym celem oraz własne otrzymane obrażenia. Kolorowane według typu obrażeń.",
+  "floatingdamageindicators.config.title": "Unoszące się Wskaźniki Obrażeń",
+  "floatingdamageindicators.config.tab.general": "Ogólne",
+  "floatingdamageindicators.config.show_damage": "Pokaż liczby obrażeń",
+  "floatingdamageindicators.config.show_received_damage": "Pokaż otrzymane obrażenia",
+  "floatingdamageindicators.config.server_side": "W trybie wieloosobowym decyduje o tym konfiguracja serwera.",
+  "floatingdamageindicators.config.restart_notice": "Zmiana kolorów, prefiksów lub opcji według typu obrażeń wymaga pełnego ponownego uruchomienia gry.",
+  "floatingdamageindicators.config.restart_required": "Wymaga ponownego uruchomienia gry.",
+  "floatingdamageindicators.config.open_config": "Otwórz plik konfiguracyjny",
+  "floatingdamageindicators.config.open_config.tooltip": "Edytuj kolory, prefiksy i opcje według typu w pliku konfiguracyjnym.",
+  "floatingdamageindicators.config.apply": "Zastosuj"
+}

@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Ajoute des nombres de dégâts flottants au-dessus de chaque cible que vous frappez, ainsi que vos propres dégâts reçus. Codés par couleur selon le type de dégâts.",
+  "floatingdamageindicators.config.title": "Indicateurs de Dégâts Flottants",
+  "floatingdamageindicators.config.tab.general": "Général",
+  "floatingdamageindicators.config.show_damage": "Afficher les nombres de dégâts",
+  "floatingdamageindicators.config.show_received_damage": "Afficher les dégâts reçus",
+  "floatingdamageindicators.config.server_side": "En multijoueur, c'est contrôlé par la configuration du serveur.",
+  "floatingdamageindicators.config.restart_notice": "Modifier les couleurs, les préfixes ou les options par type de dégâts nécessite un redémarrage complet du jeu.",
+  "floatingdamageindicators.config.restart_required": "Nécessite de redémarrer le jeu.",
+  "floatingdamageindicators.config.open_config": "Ouvrir le fichier de configuration",
+  "floatingdamageindicators.config.open_config.tooltip": "Modifiez les couleurs, les préfixes et les options par type dans le fichier de configuration.",
+  "floatingdamageindicators.config.apply": "Appliquer"
+}
