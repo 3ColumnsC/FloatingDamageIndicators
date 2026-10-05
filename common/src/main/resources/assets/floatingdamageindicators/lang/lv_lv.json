@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Pievieno peldošus bojājumu skaitļus virs katra trāpītā mērķa, kā arī tavus paša saņemtos bojājumus. Iekrāsoti pēc bojājumu veida.",
+  "floatingdamageindicators.config.title": "Peldošie Bojājumu Indikatori",
+  "floatingdamageindicators.config.tab.general": "Vispārīgi",
+  "floatingdamageindicators.config.show_damage": "Rādīt bojājumu skaitļus",
+  "floatingdamageindicators.config.show_received_damage": "Rādīt saņemtos bojājumus",
+  "floatingdamageindicators.config.server_side": "Daudzspēlētāju režīmā to kontrolē servera konfigurācija.",
+  "floatingdamageindicators.config.restart_notice": "Krāsu, prefiksu vai bojājumu veida opciju maiņa prasa pilnīgu spēles restartēšanu.",
+  "floatingdamageindicators.config.restart_required": "Nepieciešams restartēt spēli.",
+  "floatingdamageindicators.config.open_config": "Atvērt konfigurācijas failu",
+  "floatingdamageindicators.config.open_config.tooltip": "Rediģē krāsas, prefiksus un opcijas pa veidiem konfigurācijas failā.",
+  "floatingdamageindicators.config.apply": "Lietot"
+}

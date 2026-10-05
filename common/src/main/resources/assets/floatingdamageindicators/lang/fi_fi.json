@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Lisää kelluvat vahinkoluvut jokaisen osumasi kohteen yläpuolelle sekä oman vastaanottamasi vahingon. Värikoodattu vahinkotyypin mukaan.",
+  "floatingdamageindicators.config.title": "Kelluvat Vahinkoilmaisimet",
+  "floatingdamageindicators.config.tab.general": "Yleiset",
+  "floatingdamageindicators.config.show_damage": "Näytä vahinkoluvut",
+  "floatingdamageindicators.config.show_received_damage": "Näytä vastaanotettu vahinko",
+  "floatingdamageindicators.config.server_side": "Moninpelissä tätä ohjaa palvelimen asetukset.",
+  "floatingdamageindicators.config.restart_notice": "Värien, etuliitteiden tai vahinkotyyppikohtaisten valintojen muuttaminen vaatii pelin täydellisen uudelleenkäynnistyksen.",
+  "floatingdamageindicators.config.restart_required": "Vaatii pelin uudelleenkäynnistyksen.",
+  "floatingdamageindicators.config.open_config": "Avaa asetustiedosto",
+  "floatingdamageindicators.config.open_config.tooltip": "Muokkaa värejä, etuliitteitä ja tyyppikohtaisia valintoja asetustiedostossa.",
+  "floatingdamageindicators.config.apply": "Käytä"
+}

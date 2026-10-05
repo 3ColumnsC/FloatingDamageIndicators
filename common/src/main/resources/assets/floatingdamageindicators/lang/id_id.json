@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Menambahkan angka kerusakan melayang di atas setiap target yang kamu serang, serta kerusakan yang kamu terima. Diwarnai sesuai jenis kerusakan.",
+  "floatingdamageindicators.config.title": "Indikator Kerusakan Melayang",
+  "floatingdamageindicators.config.tab.general": "Umum",
+  "floatingdamageindicators.config.show_damage": "Tampilkan angka kerusakan",
+  "floatingdamageindicators.config.show_received_damage": "Tampilkan kerusakan yang diterima",
+  "floatingdamageindicators.config.server_side": "Di multipemain ini dikendalikan oleh konfigurasi server.",
+  "floatingdamageindicators.config.restart_notice": "Mengubah warna, awalan, atau opsi jenis kerusakan memerlukan mulai ulang game sepenuhnya.",
+  "floatingdamageindicators.config.restart_required": "Memerlukan mulai ulang game.",
+  "floatingdamageindicators.config.open_config": "Buka file konfigurasi",
+  "floatingdamageindicators.config.open_config.tooltip": "Edit warna, awalan, dan opsi per jenis di file konfigurasi.",
+  "floatingdamageindicators.config.apply": "Terapkan"
+}

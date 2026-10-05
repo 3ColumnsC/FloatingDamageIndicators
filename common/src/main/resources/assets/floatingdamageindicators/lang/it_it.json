@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Aggiunge numeri di danno fluttuanti sopra ogni bersaglio che colpisci, e anche i tuoi danni subiti. Colorati in base al tipo di danno.",
+  "floatingdamageindicators.config.title": "Indicatori di Danno Fluttuanti",
+  "floatingdamageindicators.config.tab.general": "Generale",
+  "floatingdamageindicators.config.show_damage": "Mostra i numeri di danno",
+  "floatingdamageindicators.config.show_received_damage": "Mostra i danni subiti",
+  "floatingdamageindicators.config.server_side": "In multigiocatore è controllato dalla configurazione del server.",
+  "floatingdamageindicators.config.restart_notice": "Modificare colori, prefissi o opzioni per tipo di danno richiede un riavvio completo del gioco.",
+  "floatingdamageindicators.config.restart_required": "Richiede il riavvio del gioco.",
+  "floatingdamageindicators.config.open_config": "Apri il file di configurazione",
+  "floatingdamageindicators.config.open_config.tooltip": "Modifica colori, prefissi e opzioni per tipo nel file di configurazione.",
+  "floatingdamageindicators.config.apply": "Applica"
+}

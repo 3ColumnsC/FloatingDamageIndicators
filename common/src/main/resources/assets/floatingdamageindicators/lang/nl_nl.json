@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Voegt zwevende schadegetallen toe boven elk doelwit dat je raakt, en ook je eigen ontvangen schade. Gekleurd op basis van het schadetype.",
+  "floatingdamageindicators.config.title": "Zwevende Schade-indicatoren",
+  "floatingdamageindicators.config.tab.general": "Algemeen",
+  "floatingdamageindicators.config.show_damage": "Schadegetallen tonen",
+  "floatingdamageindicators.config.show_received_damage": "Ontvangen schade tonen",
+  "floatingdamageindicators.config.server_side": "In multiplayer wordt dit bepaald door de configuratie van de server.",
+  "floatingdamageindicators.config.restart_notice": "Het wijzigen van kleuren, prefixen of opties per schadetype vereist een volledige herstart van het spel.",
+  "floatingdamageindicators.config.restart_required": "Vereist een herstart van het spel.",
+  "floatingdamageindicators.config.open_config": "Configuratiebestand openen",
+  "floatingdamageindicators.config.open_config.tooltip": "Bewerk kleuren, prefixen en opties per type in het configuratiebestand.",
+  "floatingdamageindicators.config.apply": "Toepassen"
+}
