@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "攻撃したすべての対象の上に浮かぶダメージ数値を表示し、自分が受けたダメージも表示します。ダメージの種類ごとに色分けされます。",
+  "floatingdamageindicators.config.title": "フローティングダメージ表示",
+  "floatingdamageindicators.config.tab.general": "一般",
+  "floatingdamageindicators.config.show_damage": "ダメージ数値を表示",
+  "floatingdamageindicators.config.show_received_damage": "受けたダメージを表示",
+  "floatingdamageindicators.config.server_side": "マルチプレイではサーバーの設定によって制御されます。",
+  "floatingdamageindicators.config.restart_notice": "色、接頭辞、ダメージの種類ごとのオプションを変更するには、ゲームを完全に再起動する必要があります。",
+  "floatingdamageindicators.config.restart_required": "ゲームの再起動が必要です。",
+  "floatingdamageindicators.config.open_config": "設定ファイルを開く",
+  "floatingdamageindicators.config.open_config.tooltip": "設定ファイルで色、接頭辞、種類ごとのオプションを編集できます。",
+  "floatingdamageindicators.config.apply": "適用"
+}

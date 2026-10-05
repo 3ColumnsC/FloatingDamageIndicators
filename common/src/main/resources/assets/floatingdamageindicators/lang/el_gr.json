@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Προσθέτει αιωρούμενους αριθμούς ζημιάς πάνω από κάθε στόχο που χτυπάς, καθώς και τη δική σου ζημιά που δέχεσαι. Χρωματισμένοι ανάλογα με τον τύπο ζημιάς.",
+  "floatingdamageindicators.config.title": "Αιωρούμενοι Δείκτες Ζημιάς",
+  "floatingdamageindicators.config.tab.general": "Γενικά",
+  "floatingdamageindicators.config.show_damage": "Εμφάνιση αριθμών ζημιάς",
+  "floatingdamageindicators.config.show_received_damage": "Εμφάνιση ζημιάς που δέχεσαι",
+  "floatingdamageindicators.config.server_side": "Στο multiplayer αυτό ελέγχεται από τη διαμόρφωση του διακομιστή.",
+  "floatingdamageindicators.config.restart_notice": "Η αλλαγή χρωμάτων, προθεμάτων ή επιλογών ανά τύπο ζημιάς απαιτεί πλήρη επανεκκίνηση του παιχνιδιού.",
+  "floatingdamageindicators.config.restart_required": "Απαιτεί επανεκκίνηση του παιχνιδιού.",
+  "floatingdamageindicators.config.open_config": "Άνοιγμα αρχείου διαμόρφωσης",
+  "floatingdamageindicators.config.open_config.tooltip": "Επεξεργαστείτε χρώματα, προθέματα και επιλογές ανά τύπο στο αρχείο διαμόρφωσης.",
+  "floatingdamageindicators.config.apply": "Εφαρμογή"
+}

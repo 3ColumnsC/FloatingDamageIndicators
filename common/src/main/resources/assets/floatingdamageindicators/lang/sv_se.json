@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Lägger till svävande skadesiffror ovanför varje mål du träffar, samt din egen mottagna skada. Färgkodat efter skadetyp.",
+  "floatingdamageindicators.config.title": "Svävande Skadeindikatorer",
+  "floatingdamageindicators.config.tab.general": "Allmänt",
+  "floatingdamageindicators.config.show_damage": "Visa skadesiffror",
+  "floatingdamageindicators.config.show_received_damage": "Visa mottagen skada",
+  "floatingdamageindicators.config.server_side": "I flerspelarläge styrs detta av serverns konfiguration.",
+  "floatingdamageindicators.config.restart_notice": "Att ändra färger, prefix eller alternativ per skadetyp kräver en full omstart av spelet.",
+  "floatingdamageindicators.config.restart_required": "Kräver omstart av spelet.",
+  "floatingdamageindicators.config.open_config": "Öppna konfigurationsfil",
+  "floatingdamageindicators.config.open_config.tooltip": "Redigera färger, prefix och alternativ per typ i konfigurationsfilen.",
+  "floatingdamageindicators.config.apply": "Verkställ"
+}

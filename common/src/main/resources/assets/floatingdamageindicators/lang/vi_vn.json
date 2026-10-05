@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Thêm các con số sát thương bay lơ lửng trên mỗi mục tiêu bạn đánh trúng, cùng với sát thương bạn nhận vào. Được tô màu theo loại sát thương.",
+  "floatingdamageindicators.config.title": "Chỉ Báo Sát Thương Bay",
+  "floatingdamageindicators.config.tab.general": "Chung",
+  "floatingdamageindicators.config.show_damage": "Hiện con số sát thương",
+  "floatingdamageindicators.config.show_received_damage": "Hiện sát thương nhận vào",
+  "floatingdamageindicators.config.server_side": "Trong chế độ nhiều người chơi, điều này do cấu hình của máy chủ kiểm soát.",
+  "floatingdamageindicators.config.restart_notice": "Thay đổi màu sắc, tiền tố hoặc tùy chọn theo loại sát thương cần khởi động lại trò chơi hoàn toàn.",
+  "floatingdamageindicators.config.restart_required": "Cần khởi động lại trò chơi.",
+  "floatingdamageindicators.config.open_config": "Mở tệp cấu hình",
+  "floatingdamageindicators.config.open_config.tooltip": "Chỉnh sửa màu sắc, tiền tố và tùy chọn theo loại trong tệp cấu hình.",
+  "floatingdamageindicators.config.apply": "Áp dụng"
+}

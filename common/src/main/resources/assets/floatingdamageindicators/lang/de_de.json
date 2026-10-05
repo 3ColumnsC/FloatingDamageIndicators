@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Fügt schwebende Schadenszahlen über jedem getroffenen Ziel hinzu, sowie deinen eigenen erlittenen Schaden. Nach Schadensart farbcodiert.",
+  "floatingdamageindicators.config.title": "Schwebende Schadensanzeigen",
+  "floatingdamageindicators.config.tab.general": "Allgemein",
+  "floatingdamageindicators.config.show_damage": "Schadenszahlen anzeigen",
+  "floatingdamageindicators.config.show_received_damage": "Erlittenen Schaden anzeigen",
+  "floatingdamageindicators.config.server_side": "Im Mehrspieler wird dies von der Serverkonfiguration gesteuert.",
+  "floatingdamageindicators.config.restart_notice": "Das Ändern von Farben, Präfixen oder Schadensart-Optionen erfordert einen vollständigen Spielneustart.",
+  "floatingdamageindicators.config.restart_required": "Erfordert einen Neustart des Spiels.",
+  "floatingdamageindicators.config.open_config": "Konfigurationsdatei öffnen",
+  "floatingdamageindicators.config.open_config.tooltip": "Farben, Präfixe und Optionen pro Typ in der Konfigurationsdatei bearbeiten.",
+  "floatingdamageindicators.config.apply": "Übernehmen"
+}

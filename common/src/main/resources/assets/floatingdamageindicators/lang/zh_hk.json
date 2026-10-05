@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "在你擊中的每個目標上方顯示漂浮的傷害數字，也包括你自己受到的傷害。依傷害類型著色。",
+  "floatingdamageindicators.config.title": "漂浮傷害指示器",
+  "floatingdamageindicators.config.tab.general": "一般",
+  "floatingdamageindicators.config.show_damage": "顯示傷害數字",
+  "floatingdamageindicators.config.show_received_damage": "顯示受到的傷害",
+  "floatingdamageindicators.config.server_side": "在多人遊戲中，這由伺服器的設定控制。",
+  "floatingdamageindicators.config.restart_notice": "變更顏色、前綴或傷害類型選項需要完全重新啟動遊戲。",
+  "floatingdamageindicators.config.restart_required": "需要重新啟動遊戲。",
+  "floatingdamageindicators.config.open_config": "開啟設定檔",
+  "floatingdamageindicators.config.open_config.tooltip": "在設定檔中編輯顏色、前綴和依類型的選項。",
+  "floatingdamageindicators.config.apply": "套用"
+}

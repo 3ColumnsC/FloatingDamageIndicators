@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Pridáva plávajúce čísla poškodenia nad každý zasiahnutý cieľ a tiež tvoje vlastné obdržané poškodenie. Oboje obarvené podľa typu poškodenia.",
+  "floatingdamageindicators.config.title": "Plávajúce Ukazovatele Poškodenia",
+  "floatingdamageindicators.config.tab.general": "Všeobecné",
+  "floatingdamageindicators.config.show_damage": "Zobrazovať čísla poškodenia",
+  "floatingdamageindicators.config.show_received_damage": "Zobrazovať obdržané poškodenie",
+  "floatingdamageindicators.config.server_side": "V hre pre viacerých hráčov to riadi konfigurácia servera.",
+  "floatingdamageindicators.config.restart_notice": "Zmena farieb, predpôn alebo možností podľa typu poškodenia vyžaduje úplný reštart hry.",
+  "floatingdamageindicators.config.restart_required": "Vyžaduje reštart hry.",
+  "floatingdamageindicators.config.open_config": "Otvoriť konfiguračný súbor",
+  "floatingdamageindicators.config.open_config.tooltip": "Upravte farby, predpony a možnosti podľa typu v konfiguračnom súbore.",
+  "floatingdamageindicators.config.apply": "Použiť"
+}

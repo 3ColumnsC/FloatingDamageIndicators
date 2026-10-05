@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Prideda plaukiojančius žalos skaičius virš kiekvieno pataikyto taikinio, taip pat ir pačiam patirtą žalą. Spalvuota pagal žalos tipą.",
+  "floatingdamageindicators.config.title": "Plaukiojantys Žalos Indikatoriai",
+  "floatingdamageindicators.config.tab.general": "Bendra",
+  "floatingdamageindicators.config.show_damage": "Rodyti žalos skaičius",
+  "floatingdamageindicators.config.show_received_damage": "Rodyti patirtą žalą",
+  "floatingdamageindicators.config.server_side": "Daugelio žaidėjų režime tai valdo serverio konfigūracija.",
+  "floatingdamageindicators.config.restart_notice": "Pakeitus spalvas, priešdėlius ar tipų parinktis, reikia visiškai iš naujo paleisti žaidimą.",
+  "floatingdamageindicators.config.restart_required": "Reikia iš naujo paleisti žaidimą.",
+  "floatingdamageindicators.config.open_config": "Atidaryti konfigūracijos failą",
+  "floatingdamageindicators.config.open_config.tooltip": "Redaguokite spalvas, priešdėlius ir tipų parinktis konfigūracijos faile.",
+  "floatingdamageindicators.config.apply": "Taikyti"
+}

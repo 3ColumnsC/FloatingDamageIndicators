@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Добавляет всплывающие числа урона над каждой целью, по которой вы попадаете, а также ваш собственный полученный урон. Цвета зависят от типа урона.",
+  "floatingdamageindicators.config.title": "Всплывающие Индикаторы Урона",
+  "floatingdamageindicators.config.tab.general": "Общие",
+  "floatingdamageindicators.config.show_damage": "Показывать числа урона",
+  "floatingdamageindicators.config.show_received_damage": "Показывать полученный урон",
+  "floatingdamageindicators.config.server_side": "В многопользовательской игре это управляется конфигурацией сервера.",
+  "floatingdamageindicators.config.restart_notice": "Изменение цветов, префиксов или параметров типов урона требует полного перезапуска игры.",
+  "floatingdamageindicators.config.restart_required": "Требуется перезапуск игры.",
+  "floatingdamageindicators.config.open_config": "Открыть файл конфигурации",
+  "floatingdamageindicators.config.open_config.tooltip": "Изменяйте цвета, префиксы и параметры по типам в файле конфигурации.",
+  "floatingdamageindicators.config.apply": "Применить"
+}

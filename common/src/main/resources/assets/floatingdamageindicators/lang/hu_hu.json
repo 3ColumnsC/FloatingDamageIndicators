@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.floatingdamageindicators": "Lebegő sebzésszámokat ad minden eltalált célpont fölé, valamint a saját elszenvedett sebzésedet is. A sebzéstípus szerint színezve.",
+  "floatingdamageindicators.config.title": "Lebegő Sebzésjelzők",
+  "floatingdamageindicators.config.tab.general": "Általános",
+  "floatingdamageindicators.config.show_damage": "Sebzésszámok megjelenítése",
+  "floatingdamageindicators.config.show_received_damage": "Elszenvedett sebzés megjelenítése",
+  "floatingdamageindicators.config.server_side": "Többjátékos módban ezt a szerver konfigurációja szabályozza.",
+  "floatingdamageindicators.config.restart_notice": "A színek, előtagok vagy sebzéstípus-opciók módosítása a játék teljes újraindítását igényli.",
+  "floatingdamageindicators.config.restart_required": "A játék újraindítását igényli.",
+  "floatingdamageindicators.config.open_config": "Konfigurációs fájl megnyitása",
+  "floatingdamageindicators.config.open_config.tooltip": "Színek, előtagok és típusonkénti opciók szerkesztése a konfigurációs fájlban.",
+  "floatingdamageindicators.config.apply": "Alkalmaz"
+}
