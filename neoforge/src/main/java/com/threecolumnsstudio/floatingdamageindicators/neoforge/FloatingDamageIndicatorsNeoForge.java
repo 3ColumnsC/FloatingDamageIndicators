@@ -1,15 +1,11 @@
 package com.threecolumnsstudio.floatingdamageindicators.neoforge;
 
 import com.threecolumnsstudio.floatingdamageindicators.FloatingDamageIndicators;
-import com.threecolumnsstudio.floatingdamageindicators.client.screen.FloatingDamageIndicatorsConfigScreen;
 import com.threecolumnsstudio.floatingdamageindicators.network.S2CDamagePacket;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLPaths;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
@@ -20,15 +16,8 @@ public class FloatingDamageIndicatorsNeoForge {
         FloatingDamageIndicators.init(FMLPaths.CONFIGDIR.get());
         modEventBus.addListener(RegisterPayloadHandlersEvent.class, this::onRegisterPayloadHandlers);
         if (FMLEnvironment.getDist().isClient()) {
-            NeoForge.EVENT_BUS.register(FloatingDamageIndicatorsNeoForgeClient.class);
-            registerConfigScreen();
+            FloatingDamageIndicatorsNeoForgeClient.init();
         }
-    }
-
-    private void registerConfigScreen() {
-        ModList.get().getModContainerById(FloatingDamageIndicators.MOD_ID).ifPresent(container ->
-            container.registerExtensionPoint(IConfigScreenFactory.class,
-                (modContainer, parent) -> new FloatingDamageIndicatorsConfigScreen(parent)));
     }
 
     private void onRegisterPayloadHandlers(RegisterPayloadHandlersEvent event) {
