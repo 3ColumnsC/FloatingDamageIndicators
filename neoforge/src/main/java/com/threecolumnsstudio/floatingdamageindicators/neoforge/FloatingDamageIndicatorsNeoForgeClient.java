@@ -1,6 +1,7 @@
 package com.threecolumnsstudio.floatingdamageindicators.neoforge;
 
 import com.threecolumnsstudio.floatingdamageindicators.FloatingDamageIndicators;
+import com.threecolumnsstudio.floatingdamageindicators.ModConfig;
 import com.threecolumnsstudio.floatingdamageindicators.client.screen.FloatingDamageIndicatorsConfigScreen;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -23,6 +24,7 @@ public class FloatingDamageIndicatorsNeoForgeClient {
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
+        ModConfig.reloadIfChanged();
         FloatingDamageIndicators.RENDERER.tick();
     }
 }

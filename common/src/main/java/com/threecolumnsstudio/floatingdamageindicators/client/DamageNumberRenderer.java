@@ -30,8 +30,7 @@ public class DamageNumberRenderer {
     public void tick() {
         ServerDamageData data;
         while ((data = ServerDamageData.QUEUE.poll()) != null) {
-            ModConfig.FormatEntry fmt = ModConfig.get().getFormat(data.type());
-            if (fmt != null && !fmt.enabled) continue;
+            if (!ModConfig.get().getEffectiveFormat(data.type()).enabled) continue;
             add(new DamageNumberEntry(data.position(), data.damage(), data.type()));
         }
         entries.removeIf(DamageNumberEntry::isExpired);
@@ -47,6 +46,7 @@ public class DamageNumberRenderer {
         if (font == null) return;
 
         for (DamageNumberEntry entry : entries) {
+            if (entry.cachedText.isEmpty()) continue;
             float smoothAge = entry.age + partialTick;
             double yOffset = smoothAge * RISE_PER_TICK;
             int fadeStart = DamageNumberEntry.LIFETIME - FADE_TICKS;

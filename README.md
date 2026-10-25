@@ -1,6 +1,6 @@
 # Floating Damage Indicators
 
-Floating damage numbers above every target you hit, and your own incoming damage too. Color-coded by damage type.
+Floating damage numbers above every target you hit, and your own incoming damage too. Fully configurable.
 
 > **Note:** FDI must be installed on both the server and client for multiplayer servers.
 
@@ -15,7 +15,7 @@ Floating damage numbers above every target you hit, and your own incoming damage
 - Floating damage numbers above any entity you hit.
 - See your own incoming damage too.
 - Color-coded by damage type.
-- Configurable. Choose which numbers show up.
+- Fully Configurable.
 - Works in both singleplayer and dedicated multiplayer.
 
 | Type         | Icon           | Color      | Example                      |
@@ -35,9 +35,7 @@ Floating damage numbers above every target you hit, and your own incoming damage
 
 The easiest way to configure Floating Damage Indicators is in-game: open **Mod Menu** (Fabric) or the **Config** button in the mods list (NeoForge).
 
-> **Note:** The in-game screen is intentionally minimal. It only shows the two main toggles and a button to open the config file. Colors, prefixes and per-type options are edited directly in the config file (see below).
-
-
+> **Note:** The screen has two tabs: **General** for the two main toggles and **Formats** for the color, prefix and per-type options. Client-side changes are applied without restarting the game.
 
 After launching the game once, a configuration file will be generated:
 
@@ -47,13 +45,13 @@ config/floatingdamageindicators.json
 
 Available options:
 
-> **Important:** `showDamage` is the **master switch**. If it is set to `false`, **no numbers are shown at all**, including your own incoming damage. `showReceivedDamage` only takes effect while `showDamage` is `true`, so keep `showDamage` enabled to see the damage you take.
+> **Important:** `showDamage` is the **master switch**. If it is set to `false`, **no numbers are shown at all**, including your own incoming damage. `showReceivedDamage` only takes effect while `showDamage` is `true`.
 
-> **Note:** The `formats` section is **client-side only**. The server only reads `showDamage`, `showReceivedDamage`, and `INSTANT_KILL`'s `enabled`. To customize prefixes, colors, or `showDamage`, edit the config file **on your client**.
+> **Note:** The `formats` section is **client-side only**, except `INSTANT_KILL`'s `enabled`, which the server also reads. The server only reads `showDamage`, `showReceivedDamage`, and `INSTANT_KILL`'s `enabled`. On a dedicated server, the server-side values still require a server restart.
 >
 > **Tip:** Some Unicode characters or emojis may not display correctly depending on your Minecraft font. If a character shows as a blank square, try a different one. Stick to basic Unicode symbols for best results.
 >
-> **Tip:** Colors must be 6-digit hex (RRGGBB). Invalid values like `"ZZZ123"` or `"FF"` will silently fall back to the default for that damage type.
+> **Tip:** Colors use `#RRGGBB`. Invalid values like `"ZZZ123"` or `"FF"` will silently fall back to the default for that damage type.
 
 
 ```
@@ -61,14 +59,14 @@ Available options:
   "showDamage": true,
   "showReceivedDamage": true,
   "formats": {
-    "NORMAL":       { "enabled": true, "prefix": "", "color": "FF3333", "showDamage": true },
-    "CRITICAL":     { "enabled": true, "prefix": "\u2726", "color": "FFD700", "showDamage": true },
-    "PROJECTILE":   { "enabled": true, "prefix": "\u27B5", "color": "00FFFF", "showDamage": true },
-    "FIRE":         { "enabled": true, "prefix": "\u2668", "color": "FF6600", "showDamage": true },
-    "POISON":       { "enabled": true, "prefix": "\u2697", "color": "4A9E2F", "showDamage": true },
-    "WITHER":       { "enabled": true, "prefix": "\u2620", "color": "3C3C3C", "showDamage": true },
-    "RECEIVING":    { "enabled": true, "prefix": "(You) ", "color": "AAAAAA", "showDamage": true },
-    "INSTANT_KILL": { "enabled": true, "prefix": "\u26A1 INSTANT KILL", "color": "FFD700", "showDamage": false }
+    "NORMAL":       { "enabled": true, "prefix": "", "color": "#FF3333", "showDamage": true },
+    "CRITICAL":     { "enabled": true, "prefix": "\u2726", "color": "#FFD700", "showDamage": true },
+    "PROJECTILE":   { "enabled": true, "prefix": "\u27B5", "color": "#00FFFF", "showDamage": true },
+    "FIRE":         { "enabled": true, "prefix": "\u2668", "color": "#FF6600", "showDamage": true },
+    "POISON":       { "enabled": true, "prefix": "\u2697", "color": "#4A9E2F", "showDamage": true },
+    "WITHER":       { "enabled": true, "prefix": "\u2620", "color": "#3C3C3C", "showDamage": true },
+    "RECEIVING":    { "enabled": true, "prefix": "(You) ", "color": "#AAAAAA", "showDamage": true },
+    "INSTANT_KILL": { "enabled": true, "prefix": "\u26A1 INSTANT KILL", "color": "#FFD700", "showDamage": false }
   }
 }
 ```

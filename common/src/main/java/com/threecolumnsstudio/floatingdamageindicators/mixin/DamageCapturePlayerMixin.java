@@ -15,11 +15,11 @@ public class DamageCapturePlayerMixin {
 
     @Inject(method = "actuallyHurt", at = @At("HEAD"))
     private void fdi$recordPlayerHealth(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        DamageCaptureState.recordHealth((LivingEntity) (Object) this);
+        DamageCaptureState.recordHealth((LivingEntity) (Object) this, level.getGameTime());
     }
 
     @Inject(method = "actuallyHurt", at = @At("RETURN"))
     private void fdi$capturePlayerDamage(ServerLevel level, DamageSource source, float damage, CallbackInfo ci) {
-        DamageCaptureState.captureDamage((LivingEntity) (Object) this);
+        DamageCaptureState.captureDamage((LivingEntity) (Object) this, level.getGameTime());
     }
 }
