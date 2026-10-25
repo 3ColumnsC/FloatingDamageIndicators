@@ -24,8 +24,7 @@ public class DamageNumberEntry {
         this.type = type;
         this.age = 0;
         String prefix = DamageClassifier.getPrefix(type);
-        ModConfig.FormatEntry fmt = ModConfig.get().getFormat(type);
-        boolean showNum = fmt == null || fmt.showDamage;
+        boolean showNum = ModConfig.get().getEffectiveFormat(type).showDamage;
         String num = showNum ? String.format(Locale.ROOT, "%.1f", this.damage) : "";
         String sep = (!prefix.isEmpty() && !num.isEmpty() && !prefix.endsWith(" ")) ? " " : "";
         String text = prefix + sep + num;

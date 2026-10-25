@@ -30,9 +30,9 @@ public final class DamageNotifier {
 
             Vec3 pos = target.position().add(0, target.getBbHeight() * 0.85, 0);
             DamageType type;
-            ModConfig.FormatEntry killFmt = ModConfig.get().getFormat(DamageType.INSTANT_KILL);
+            ModConfig.FormatEntry killFmt = ModConfig.get().getEffectiveFormat(DamageType.INSTANT_KILL);
             boolean oneShot = target.isDeadOrDying() && wasFullHealth;
-            if (oneShot && killFmt != null && killFmt.enabled) {
+            if (oneShot && killFmt.enabled) {
                 type = DamageType.INSTANT_KILL;
             } else {
                 type = DamageClassification.classifyDirect(source, attackerPlayer);
