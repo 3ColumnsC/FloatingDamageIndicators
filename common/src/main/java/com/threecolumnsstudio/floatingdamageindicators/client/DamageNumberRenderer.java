@@ -33,8 +33,7 @@ public class DamageNumberRenderer {
     public void tick() {
         ServerDamageData data;
         while ((data = ServerDamageData.QUEUE.poll()) != null) {
-            ModConfig.FormatEntry fmt = ModConfig.get().getFormat(data.type());
-            if (fmt != null && !fmt.enabled) continue;
+            if (!ModConfig.get().getEffectiveFormat(data.type()).enabled) continue;
             add(new DamageNumberEntry(data.position(), data.damage(), data.type()));
         }
         entries.removeIf(DamageNumberEntry::isExpired);

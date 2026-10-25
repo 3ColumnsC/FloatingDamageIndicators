@@ -4,24 +4,22 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.threecolumnsstudio.floatingdamageindicators.DamageType;
 import com.threecolumnsstudio.floatingdamageindicators.FloatingDamageIndicators;
 import com.threecolumnsstudio.floatingdamageindicators.ModConfig;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
-import net.minecraft.client.gui.components.MultiLineTextWidget;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.components.tabs.Tab;
 import net.minecraft.client.gui.components.tabs.TabManager;
 import net.minecraft.client.gui.components.tabs.TabNavigationBar;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
+import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.CommonComponents;
@@ -33,12 +31,13 @@ public final class FloatingDamageIndicatorsConfigScreen extends Screen {
     private static final int ROW_SPACING = 6;
     private static final int COLUMN_SPACING = 4;
     private static final int BUTTON_WIDTH = 100;
-    private static final int CONTENT_TOP_PADDING = 8;
     private static final int CONTENT_H_MARGIN = 24;
     private static final int GENERAL_WIDTH = 240;
-    private static final int ICON_SIZE = 10;
+    private static final int FORMATS_BUTTON_WIDTH = 140;
+    private static final int FORMATS_RESET_WIDTH = FORMATS_BUTTON_WIDTH * 2 + COLUMN_SPACING;
 
     private final Screen parent;
+    private final int initialTab;
     private final HeaderAndFooterLayout layout;
     private final TabManager tabManager;
 
@@ -48,11 +47,20 @@ public final class FloatingDamageIndicatorsConfigScreen extends Screen {
     private boolean showReceivedDamage;
 
     public FloatingDamageIndicatorsConfigScreen(Screen parent) {
+        this(parent, 0);
+    }
+
+    FloatingDamageIndicatorsConfigScreen(Screen parent, int initialTab) {
         super(Component.translatable("floatingdamageindicators.config.title"));
         this.parent = parent;
+        this.initialTab = initialTab;
         this.layout = new HeaderAndFooterLayout(this);
         this.tabManager = new TabManager(this::addRenderableWidget, this::removeWidget);
         readConfig();
+    }
+
+    FloatingDamageIndicatorsConfigScreen withTab(int tab) {
+        return new FloatingDamageIndicatorsConfigScreen(this.parent, tab);
     }
 
     private void readConfig() {
@@ -63,10 +71,14 @@ public final class FloatingDamageIndicatorsConfigScreen extends Screen {
 
     @Override
     protected void init() {
-        GridLayout content = buildGeneralContent();
+        GridLayout general = buildGeneralContent();
+        GridLayout formats = buildFormatsContent();
 
         this.tabNavigationBar = TabNavigationBar.builder(this.tabManager, this.width)
-            .addTabs(new ConfigTab(Component.translatable("floatingdamageindicators.config.tab.general"), content))
+            .addTabs(
+                new GridConfigTab(Component.translatable("floatingdamageindicators.config.tab.general"), general),
+                new GridConfigTab(Component.translatable("floatingdamageindicators.config.tab.formats"), formats)
+            )
             .build();
         this.addRenderableWidget(this.tabNavigationBar);
 
@@ -79,40 +91,70 @@ public final class FloatingDamageIndicatorsConfigScreen extends Screen {
             .build());
 
         this.layout.visitWidgets(this::addRenderableWidget);
-        this.tabNavigationBar.selectTab(0, false);
+        this.tabNavigationBar.selectTab(Math.max(0, Math.min(this.initialTab, 1)), false);
         this.repositionElements();
     }
 
     private GridLayout buildGeneralContent() {
         int widgetWidth = Math.min(GENERAL_WIDTH,
-            Math.max(160, this.width - CONTENT_H_MARGIN * 2 - ICON_SIZE - COLUMN_SPACING));
+            Math.max(160, this.width - CONTENT_H_MARGIN * 2));
         GridLayout grid = new GridLayout();
         grid.columnSpacing(COLUMN_SPACING).rowSpacing(ROW_SPACING);
 
+        GridLayout.RowHelper rows = grid.createRowHelper(1);
         Tooltip serverSide = Tooltip.create(Component.translatable("floatingdamageindicators.config.server_side"));
-        grid.addChild(toggle("floatingdamageindicators.config.show_damage", this.showDamage, value -> this.showDamage = value, widgetWidth, serverSide), 0, 1);
-        grid.addChild(toggle("floatingdamageindicators.config.show_received_damage", this.showReceivedDamage, value -> this.showReceivedDamage = value, widgetWidth, serverSide), 1, 1);
-
-        Component restartTooltip = Component.translatable("floatingdamageindicators.config.restart_required");
-
-        Button open = Button.builder(Component.translatable("floatingdamageindicators.config.open_config"), button -> openConfigFile())
+        rows.addChild(toggle("floatingdamageindicators.config.show_damage", this.showDamage,
+            value -> this.showDamage = value, widgetWidth, serverSide));
+        rows.addChild(toggle("floatingdamageindicators.config.show_received_damage", this.showReceivedDamage,
+            value -> this.showReceivedDamage = value, widgetWidth, serverSide));
+        rows.addChild(Button.builder(Component.translatable("floatingdamageindicators.config.open_config"),
+                button -> openConfigFile())
             .width(widgetWidth)
             .tooltip(Tooltip.create(Component.translatable("floatingdamageindicators.config.open_config.tooltip")))
-            .build();
-        grid.addChild(new ReloadIcon(restartTooltip), 2, 0);
-        grid.addChild(open, 2, 1);
-
-        MultiLineTextWidget notice = new MultiLineTextWidget(
-            Component.translatable("floatingdamageindicators.config.restart_notice").withStyle(ChatFormatting.GOLD),
-            this.font);
-        notice.setMaxWidth(widgetWidth);
-        grid.addChild(new ReloadIcon(restartTooltip), 3, 0);
-        grid.addChild(notice, 3, 1);
+            .build());
 
         return grid;
     }
 
-    private CycleButton<Boolean> toggle(String translationKey, boolean initialValue, Consumer<Boolean> setter, int width, Tooltip tooltip) {
+    private GridLayout buildFormatsContent() {
+        GridLayout grid = new GridLayout();
+        grid.columnSpacing(COLUMN_SPACING).rowSpacing(ROW_SPACING);
+
+        GridLayout.RowHelper rows = grid.createRowHelper(2);
+        for (DamageType type : DamageType.values()) {
+            rows.addChild(Button.builder(FormatLabels.forType(type),
+                    button -> this.minecraft.setScreen(new FormatConfigScreen(this, type)))
+                .width(FORMATS_BUTTON_WIDTH)
+                .build());
+        }
+        rows.addChild(Button.builder(Component.translatable("floatingdamageindicators.config.reset_formats"),
+                button -> openResetFormatsConfirmation())
+            .width(FORMATS_RESET_WIDTH)
+            .build(), 2);
+
+        return grid;
+    }
+
+    private void openResetFormatsConfirmation() {
+        this.minecraft.setScreen(new ConfirmScreen(
+            confirmed -> {
+                if (confirmed) {
+                    ModConfig.resetFormats();
+                    Path configDir = FloatingDamageIndicators.CONFIG_DIR;
+                    if (configDir != null) {
+                        ModConfig.updateFormats(configDir);
+                    }
+                }
+                this.minecraft.setScreen(this.withTab(1));
+            },
+            Component.translatable("floatingdamageindicators.config.reset_formats.title"),
+            Component.translatable("floatingdamageindicators.config.reset_formats.message"),
+            Component.translatable("floatingdamageindicators.config.reset_formats.confirm"),
+            CommonComponents.GUI_CANCEL));
+    }
+
+    private CycleButton<Boolean> toggle(String translationKey, boolean initialValue, Consumer<Boolean> setter,
+                                        int width, Tooltip tooltip) {
         CycleButton<Boolean> button = CycleButton.onOffBuilder(initialValue)
             .create(0, 0, width, WIDGET_HEIGHT, Component.translatable(translationKey),
                 (cycleButton, value) -> setter.accept(value));
@@ -172,33 +214,5 @@ public final class FloatingDamageIndicatorsConfigScreen extends Screen {
         graphics.blit(Screen.FOOTER_SEPARATOR,
             0, this.height - this.layout.getFooterHeight() - 2, 0.0F, 0.0F, this.width, 2, 32, 2);
         RenderSystem.disableBlend();
-    }
-
-    private static final class ConfigTab implements Tab {
-
-        private final Component title;
-        private final GridLayout content;
-
-        private ConfigTab(Component title, GridLayout content) {
-            this.title = title;
-            this.content = content;
-        }
-
-        @Override
-        public Component getTabTitle() {
-            return this.title;
-        }
-
-        @Override
-        public void visitChildren(Consumer<AbstractWidget> consumer) {
-            this.content.visitWidgets(consumer);
-        }
-
-        @Override
-        public void doLayout(ScreenRectangle area) {
-            this.content.arrangeElements();
-            int centeredX = area.left() + (area.width() - this.content.getWidth()) / 2;
-            this.content.setPosition(centeredX, area.top() + CONTENT_TOP_PADDING);
-        }
     }
 }

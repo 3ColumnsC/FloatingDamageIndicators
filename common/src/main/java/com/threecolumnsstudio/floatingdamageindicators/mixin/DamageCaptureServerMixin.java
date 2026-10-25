@@ -24,12 +24,15 @@ public class DamageCaptureServerMixin {
 
     @Inject(method = "hurt", at = @At("RETURN"))
     private void fdi$onHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (!cir.getReturnValue()) return;
-        if (!ModConfig.get().showDamage) return;
-        if (FloatingDamageIndicators.DAMAGE_PACKET_SENDER == null) return;
-
         LivingEntity self = (LivingEntity) (Object) this;
         if (self.level().isClientSide()) return;
+
+        if (!cir.getReturnValue()
+                || !ModConfig.get().showDamage
+                || FloatingDamageIndicators.DAMAGE_PACKET_SENDER == null) {
+            DamageCaptureState.removeInitialHealth(self.getId());
+            return;
+        }
 
         DamageNotifier.onEntityHurt((ServerLevel) self.level(), self, source, amount);
     }
