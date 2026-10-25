@@ -1,6 +1,7 @@
 package com.threecolumnsstudio.floatingdamageindicators.fabric;
 
 import com.threecolumnsstudio.floatingdamageindicators.FloatingDamageIndicators;
+import com.threecolumnsstudio.floatingdamageindicators.ModConfig;
 import com.threecolumnsstudio.floatingdamageindicators.network.S2CDamagePacket;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -12,6 +13,7 @@ public class FloatingDamageIndicatorsFabricClient implements ClientModInitialize
     @Override
     public void onInitializeClient() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            ModConfig.reloadIfChanged();
             FloatingDamageIndicators.RENDERER.tick();
         });
 
